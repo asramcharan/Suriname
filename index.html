@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stemmen in Suriname — De geschiedenis van de Surinaamse verkiezingen 1866–2025</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.0.1/chartjs-plugin-annotation.min.js"></script>
+<style>
+:root {
+  --cyan: #1B6CA8; --dark: #1A1A2E; --accent: #D85A30; --mid: #4A90C4;
+  --light: #F0F6FC; --gray: #888780; --text: #2C2C2A; --border: #DDE4ED;
+  --vhp: #378ADD; --ndp: #D85A30; --abop: #5DCAA5; --nps: #9FE1CB;
+  --pl: #EF9F27; --a20: #7F77DD; --bep: #639922;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Georgia', serif; color: var(--text); background: #FAFAFA; line-height: 1.8; }
+
+/* LAYOUT */
+.sidebar { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; background: var(--dark); overflow-y: auto; z-index: 100; padding: 0 0 2rem; }
+.main { margin-left: 260px; }
+@media (max-width: 900px) { .sidebar { display: none; } .main { margin-left: 0; } }
+
+/* SIDEBAR */
+.sb-title { padding: 1.2rem 1.2rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sb-title h2 { font-size: 13px; color: var(--mid); font-family: sans-serif; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.sb-title p { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+.sb-nav { padding: 0.5rem 0; }
+.sb-nav a { display: block; padding: 0.45rem 1.2rem; font-size: 12px; color: rgba(255,255,255,0.6); text-decoration: none; font-family: sans-serif; transition: all 0.15s; border-left: 3px solid transparent; }
+.sb-nav a:hover { color: white; background: rgba(255,255,255,0.07); }
+.sb-nav a.active { color: white; border-left-color: var(--mid); background: rgba(255,255,255,0.05); }
+.sb-nav .sb-section { padding: 0.8rem 1.2rem 0.3rem; font-size: 10px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; font-family: sans-serif; }
+
+/* COVER */
+.cover { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, #0d2b4e 60%, #1B3A6B 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; text-align: center; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 60% 40%, rgba(27,108,168,0.3) 0%, transparent 50%); }
+.cover-flag { display: flex; gap: 8px; margin-bottom: 2rem; position: relative; }
+.cover-flag span { width: 16px; height: 80px; border-radius: 3px; }
+.cover h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); color: white; letter-spacing: 0.04em; position: relative; line-height: 1.1; }
+.cover h1 span { color: var(--mid); }
+.cover .subtitle { font-size: clamp(1rem, 2vw, 1.3rem); color: rgba(255,255,255,0.65); margin: 1.2rem 0 2.5rem; font-style: italic; position: relative; }
+.cover-divider { width: 80px; height: 3px; background: var(--mid); margin: 0 auto 2rem; border-radius: 2px; position: relative; }
+.cover-meta { font-size: 14px; color: rgba(255,255,255,0.5); font-family: sans-serif; position: relative; }
+.cover-meta strong { color: rgba(255,255,255,0.8); }
+.scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.3); font-size: 12px; font-family: sans-serif; animation: bounce 2s infinite; }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* SECTIONS */
+.section { padding: 4rem 4rem 3rem; max-width: 860px; margin: 0 auto; }
+.section-header { padding: 3rem 4rem 0; max-width: 860px; margin: 0 auto; }
+@media (max-width: 700px) { .section, .section-header { padding: 2rem 1.5rem; } }
+
+/* TYPOGRAPHY */
+.part-label { font-family: sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.5rem; }
+h1.part-title { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--dark); line-height: 1.15; margin-bottom: 0.5rem; }
+h2.chapter { font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--gray); font-weight: 400; font-style: italic; margin-bottom: 2rem; }
+.divider { height: 3px; width: 60px; background: var(--cyan); border-radius: 2px; margin: 1.5rem 0; }
+h3.section-title { font-family: sans-serif; font-size: 1rem; font-weight: 700; color: var(--cyan); margin: 2.5rem 0 0.8rem; letter-spacing: 0.01em; }
+p { margin-bottom: 1.1rem; font-size: 1.05rem; }
+blockquote { border-left: 4px solid var(--cyan); padding: 0.8rem 1.2rem; margin: 1.5rem 0; background: var(--light); border-radius: 0 8px 8px 0; font-style: italic; color: #444; }
+
+/* KERN BOX */
+.kern { background: var(--light); border-top: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan); padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 0; }
+.kern-label { font-family: sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cyan); margin-bottom: 0.5rem; }
+.kern p { margin: 0; font-size: 0.95rem; font-style: italic; color: #444; }
+
+/* SECTION SEPARATOR */
+.section-sep { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+/* CHARTS */
+.chart-block { margin: 2.5rem 0; }
+.chart-intro { font-size: 0.95rem; color: #555; margin-bottom: 1rem; padding: 1rem 1.2rem; background: #f8f9fb; border-left: 3px solid var(--border); border-radius: 0 6px 6px 0; }
+.chart-wrap { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); position: relative; }
+.chart-title { font-family: sans-serif; font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 1rem; }
+.chart-explain { font-size: 0.92rem; color: #555; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); line-height: 1.7; }
+.chart-canvas-wrap { position: relative; width: 100%; }
+
+/* LEGEND */
+.legend { display: flex; flex-wrap: wrap; gap: 10px; margin: 0.8rem 0; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-family: sans-serif; font-size: 11px; color: #555; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+/* TABLES */
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 1.2rem 0; font-family: sans-serif; }
+.data-table th { background: var(--cyan); color: white; padding: 8px 10px; text-align: left; font-weight: 600; font-size: 11px; }
+.data-table td { padding: 7px 10px; border-bottom: 1px solid #eee; }
+.data-table tr:nth-child(even) td { background: #f9fafc; }
+.data-table tr:hover td { background: #eef4fb; }
+
+/* PARTY BADGES */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; font-family: sans-serif; }
+.badge-vhp { background: #deeef9; color: #0d4a8a; }
+.badge-ndp { background: #fbe8e2; color: #8a2200; }
+.badge-abop { background: #dff5ee; color: #085041; }
+.badge-nps { background: #e8f8f2; color: #085041; }
+.badge-pl { background: #fdf3e2; color: #7a4200; }
+
+/* INTERACTIVE CONTROLS */
+.ctrl-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.ctrl-btn { padding: 5px 14px; border: 1.5px solid var(--border); border-radius: 20px; background: white; font-size: 12px; font-family: sans-serif; cursor: pointer; transition: all 0.15s; color: #555; }
+.ctrl-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.ctrl-btn.active { color: white; border-color: transparent; }
+
+/* TOC */
+.toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 2rem; margin: 2rem 0; }
+.toc h3 { font-family: sans-serif; font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.toc-item { display: flex; align-items: baseline; gap: 0; margin-bottom: 0.5rem; font-family: sans-serif; font-size: 13px; }
+.toc-item a { color: var(--cyan); text-decoration: none; flex-shrink: 0; }
+.toc-item a:hover { text-decoration: underline; }
+.toc-dots { flex: 1; border-bottom: 1px dotted #ccc; margin: 0 6px 4px; }
+.toc-num { color: #999; font-size: 12px; }
+.toc-sub { padding-left: 1.5rem; font-size: 12px; color: #666; margin-bottom: 0.3rem; display: flex; align-items: baseline; gap: 0; }
+.toc-sub a { color: #666; text-decoration: none; }
+.toc-sub a:hover { color: var(--cyan); }
+
+/* TIJDLIJN */
+.tijdlijn { position: relative; padding: 2rem 0; }
+.tl-track { position: relative; height: 60px; margin: 2rem 0; }
+.tl-era { position: absolute; height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.tl-era span { font-size: 10px; font-weight: 700; color: white; font-family: sans-serif; text-align: center; padding: 0 4px; white-space: nowrap; overflow: hidden; }
+.tl-events { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.tl-event { background: white; border: 1.5px solid var(--border); border-radius: 8px; padding: 8px 10px; font-family: sans-serif; font-size: 11px; cursor: pointer; transition: all 0.15s; max-width: 120px; text-align: center; }
+.tl-event:hover { border-color: var(--cyan); box-shadow: 0 2px 8px rgba(27,108,168,0.15); }
+.tl-event .tl-year { font-weight: 700; font-size: 13px; margin-bottom: 2px; }
+.tl-event .tl-label { font-size: 10px; color: #777; line-height: 1.3; }
+.tl-detail { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin-top: 1rem; min-height: 80px; }
+.tl-detail-year { font-size: 2rem; font-weight: 700; color: var(--dark); font-family: sans-serif; }
+.tl-detail-title { font-weight: 700; font-family: sans-serif; margin: 4px 0 8px; }
+.tl-detail-desc { font-size: 0.9rem; color: #555; line-height: 1.7; }
+
+/* PARLEMENT ZETELS VISUALISATIE */
+.seat-grid { display: flex; flex-wrap: wrap; gap: 4px; margin: 1rem 0; }
+.seat { width: 18px; height: 18px; border-radius: 3px; }
+
+/* PRINT */
+@media print {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .cover { min-height: auto; padding: 2rem; }
+  .chart-wrap { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+  .section { page-break-before: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sb-title">
+    <h2>Stemmen in Suriname</h2>
+    <p>1866 – 2025</p>
+  </div>
+  <div class="sb-nav">
+    <a href="#cover">Titelpagina</a>
+    <a href="#toc">Inhoudsopgave</a>
+    <div class="sb-section">Hoofdstukken</div>
+    <a href="#deel1">Deel 1 — Het toneel</a>
+    <a href="#deel2">Deel 2 — De spelregels</a>
+    <a href="#deel3">Deel 3 — De grote spelers</a>
+    <a href="#deel4">Deel 4 — Etniciteit &amp; politiek</a>
+    <a href="#deel5">Deel 5 — Verkiezing voor verkiezing</a>
+    <a href="#deel6">Deel 6 — 25 mei 2025</a>
+    <a href="#deel7">Deel 7 — Wat nu?</a>
+    <div class="sb-section">Bijlagen</div>
+    <a href="#bijlage-dna">DNA-leden 2025</a>
+    <a href="#bijlage-kabinetten">Kabinetten</a>
+    <a href="#bijlage-partijen">Partijen</a>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- COVER -->
+<section class="cover" id="cover">
+  <div class="cover-flag">
+    <span style="background:#007A33"></span>
+    <span style="background:white"></span>
+    <span style="background:#A00000; width:32px"></span>
+    <span style="background:white"></span>
+    <span style="background:#007A33"></span>
+  </div>
+  <h1>Stemmen in <span>Suriname</span></h1>
+  <p class="subtitle">Een geschiedenis van de Surinaamse verkiezingen 1866–2025</p>
+  <div class="cover-divider"></div>
+  <div style="position:relative; max-width:680px; margin:0 auto; padding:1.8rem 2rem; background:rgba(0,0,0,0.35); border:1px solid rgba(255,60,60,0.25); border-radius:12px; text-align:center;">
+    <p style="font-size:14px; color:#FF9999; font-family:sans-serif; font-style:italic; margin-bottom:0.6rem; line-height:1.7; text-shadow:0 1px 4px rgba(0,0,0,0.6);">Dit interactief werk is voor u samengesteld ter nagedachtenis van</p>
+    <p style="font-size:13px; color:#FF9999; font-family:sans-serif; font-style:italic; margin-bottom:0.5rem; line-height:1.6; text-shadow:0 1px 4px rgba(0,0,0,0.6);">Chan, de Surinaamse Politicus, die de meeste stemmen ooit in de geschiedenis van de Surinaamse democratie behaalde</p>
+    <p style="font-size:30px; font-weight:700; color:#FF2222; font-family:sans-serif; margin-bottom:0.2rem; text-shadow:0 2px 12px rgba(0,0,0,0.6); letter-spacing:0.02em;">Chandrikapersad Santokhi</p>
+    <p style="font-size:15px; color:#FF7777; font-family:sans-serif; font-style:italic; margin-bottom:1.4rem; text-shadow:0 1px 6px rgba(0,0,0,0.5);">President van Suriname (1959–2026)</p>
+    <div style="border-top:1px solid rgba(255,80,80,0.3); padding-top:1.2rem; text-align:left;">
+      <p style="font-size:12.5px; color:rgba(255,200,200,0.82); font-family:sans-serif; line-height:1.85; margin-bottom:0.75rem;">Chandrikapersad &#8220;Chan&#8221; Santokhi was de negende president van de Republiek Suriname (2020&#8211;2025) en een staatsman die zijn leven wijdde aan recht, orde en bestuurlijke integriteit. Geboren op 3 februari 1959 in Lelydorp, in een Hindoestaans gezin, groeide hij uit tot een van de meest bepalende leiders van het moderne Suriname.</p>
+      <p style="font-size:12.5px; color:rgba(255,200,200,0.82); font-family:sans-serif; line-height:1.85; margin-bottom:0.75rem;">Zijn loopbaan begon bij de politie, waar hij diende als inspecteur in onder meer Geyersvlijt en Wanica, en later hoofd werd van de nationale recherche. Reeds in 1989 werd hij benoemd tot commissaris van politie. Deze jaren vormden het fundament van zijn latere politieke en bestuurlijke stijl: gedisciplineerd, analytisch en onwrikbaar in zijn streven naar rechtshandhaving.</p>
+      <p style="font-size:12.5px; color:rgba(255,200,200,0.82); font-family:sans-serif; line-height:1.85; margin-bottom:0.75rem;">Van 2005 tot 2010 bekleedde Santokhi het ambt van minister van Justitie en Politie. Hij speelde een sleutelrol in het opstarten van het strafproces rond de decembermoorden, een historisch keerpunt in de versterking van de Surinaamse rechtsstaat. Na zijn ministerschap werd hij parlementariër en vanaf 2011 voorzitter van de Vooruitstrevende Hervormings Partij (VHP), die hij hervormde tot een brede nationale beweging.</p>
+      <p style="font-size:12.5px; color:rgba(255,200,200,0.82); font-family:sans-serif; line-height:1.85; margin-bottom:0.75rem;">Als president leidde Santokhi Suriname door een periode van economische stabilisatie en intensivering van de strijd tegen criminaliteit. Tegelijkertijd zette hij zich in voor versterking van internationale relaties, waaronder die met Nederland. Chan Santokhi wordt herinnerd als een leider van principes: gevormd door discipline, gedragen door plichtsbesef en gedreven door een diep geloof in de rechtsstaat. Zijn nalatenschap is die van een bouwer&#8212;een man die, tegen de stroom in, koos voor dienstbaarheid aan land en volk.</p>
+      <div style="margin-top:1.2rem; padding-top:1rem; border-top:1px solid rgba(255,80,80,0.2);">
+        <p style="font-size:13px; font-weight:700; color:#FF4444; font-family:sans-serif; margin-bottom:0.2rem;">Ashwin Ramcharan (2026)</p>
+        <p style="font-size:12px; color:rgba(255,180,180,0.7); font-family:sans-serif; font-style:italic; line-height:1.6;">in diepe erkentelijkheid voor de onmisbare intellectuele en inhoudelijke bijdrage van Hardeo R. Ramadhin</p>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">↓ Scroll om te lezen</div>
+</section>
+
+<!-- TOC -->
+<section id="toc" style="padding: 4rem; max-width: 860px; margin: 0 auto;">
+  <div class="toc">
+    <h3>Inhoudsopgave</h3>
+    <div class="toc-item"><a href="#deel1">Deel 1 — Het toneel: van 1866 tot 2025</a><span class="toc-dots"></span></div>
+    <div class="toc-sub"><a href="#chart-tijdlijn">↳ Grafiek: Politieke tijdlijn 1866–2025</a></div>
+    <div class="toc-item"><a href="#deel2">Deel 2 — De spelregels: hoe werken de verkiezingen?</a><span class="toc-dots"></span></div>
+    <div class="toc-sub"><a href="#chart-opkomst">↳ Grafiek: Opkomst per district 2025</a></div>
+    <div class="toc-item"><a href="#deel3">Deel 3 — De grote spelers: vier partijen, vier karakters</a><span class="toc-dots"></span></div>
+    <div class="toc-sub"><a href="#chart-zetelverloop">↳ Grafiek: Zetelverloop 1987–2025</a></div>
+    <div class="toc-sub"><a href="#chart-verkiezingen">↳ Grafiek: Zetelverdeling alle verkiezingen</a></div>
+    <div class="toc-item"><a href="#deel4">Deel 4 — Etniciteit en politiek</a><span class="toc-dots"></span></div>
+    <div class="toc-sub"><a href="#chart-etniciteit">↳ Grafiek: Etnische samenstelling Suriname</a></div>
+    <div class="toc-sub"><a href="#chart-picolet">↳ Grafiek: De picoletfilosofie</a></div>
+    <div class="toc-sub"><a href="#chart-stemgedrag">↳ Grafiek: Stemgedrag per partij</a></div>
+    <div class="toc-item"><a href="#deel5">Deel 5 — Verkiezing voor verkiezing</a><span class="toc-dots"></span></div>
+    <div class="toc-item"><a href="#deel6">Deel 6 — De dag zelf: 25 mei 2025</a><span class="toc-dots"></span></div>
+    <div class="toc-sub"><a href="#chart-uitslag">↳ Grafiek: Uitslag 2025 landelijk</a></div>
+    <div class="toc-sub"><a href="#chart-district">↳ Grafiek: Uitslag per district</a></div>
+    <div class="toc-sub"><a href="#chart-topkandidaten">↳ Grafiek: Topkandidaten</a></div>
+    <div class="toc-item"><a href="#deel7">Deel 7 — Wat nu? Lessen en toekomst</a><span class="toc-dots"></span></div>
+    <div class="toc-sub"><a href="#chart-democratie">↳ Grafiek: Democratische gezondheid</a></div>
+    <div class="toc-item"><a href="#bijlage-dna">Bijlage 1 — DNA-leden 2025 (alle 51)</a><span class="toc-dots"></span></div>
+    <div class="toc-item"><a href="#bijlage-kabinetten">Bijlage 2 — Drie kabinetten vergeleken</a><span class="toc-dots"></span></div>
+    <div class="toc-sub"><a href="#chart-rr">↳ Grafiek: Ressorts- en Districtsraden</a></div>
+    <div class="toc-item"><a href="#bijlage-partijen">Bijlage 3 — Deelnemende partijen 2015–2025</a><span class="toc-dots"></span></div>
+  </div>
+</section>
+
+<!-- ═══ DEEL 1 ═══ -->
+<div id="deel1">
+<div class="section-header">
+  <p class="part-label">Deel 1</p>
+  <h1 class="part-title">Het toneel</h1>
+  <h2 class="chapter">De lange weg naar de stembus: Suriname van 1866 tot 2025</h2>
+  <div class="divider"></div>
+</div>
+<div class="section">
+  <p>Het is een warme ochtend in november 1949. Voor een bescheiden gebouw in Paramaribo staat een rij mensen te wachten. Hindostaanse mannen in witte hemden, Javaanse vrouwen met hun doek om het hoofd, Marronmannen die van ver uit het binnenland zijn gekomen. Ze hebben allemaal hetzelfde doel: voor het eerst in hun leven mogen zij bepalen wie hun land bestuurt.</p>
+  <p>Een oude contractarbeider — zijn grootvader was op een schip vanuit Brits-Indië naar Suriname gebracht — staat in de rij en houdt zijn stempapier vast alsof het heilig is. Hij kan niet lezen. Maar hij weet voor wie hij stemt. Hij weet wat deze dag betekent.</p>
+  <p>Het is de dag dat Suriname voor het eerst van zichzelf wordt. Voordat die dag kon aanbreken, was er echter een lange, moeizame weg afgelegd — begonnen met een klein vergaderzaaltje vol Europese heren die beslisten over een land dat zij nauwelijks kenden.</p>
+
+  <h3 class="section-title">§1. Een zaal vol heren: 1866–1937</h3>
+  <p>Op 8 mei 1866 werd de Koloniale Staten van Suriname opgericht: dertien leden, waarvan negen gekozen en vier door de gouverneur benoemd. Maar wie mocht er kiezen? Alleen mannen met een belastbaar inkomen van minimaal 800 gulden per jaar, of met een ULO-diploma of hoger. In 1945 stonden er slechts 2.995 kiesgerechtigden geregistreerd in heel Suriname. Twee en negentig duizend andere Surinamers hadden geen stem.</p>
+
+  <h3 class="section-title">§2. Het moment dat alles omsloeg: 1949</h3>
+  <p>In 1949 werd het Algemeen Kiesrecht ingevoerd. Elke volwassen Surinamer — ongeacht inkomen, opleiding, etniciteit of geslacht — heeft nu het recht om te stemmen. De NPS won de eerste verkiezingen met 12 van de 21 zetels. Jagernath Lachmon van de VHP en Johan Adolf Pengel van de NPS zouden de twee bepalende figuren worden. Hun <em>verbroederingspolitiek</em> — het bewust bouwen van bruggen over etnische scheidslijnen — legde de basis voor de Surinaamse democratie.</p>
+
+  <h3 class="section-title">§3. De onafhankelijkheid die niemand vroeg: 1975</h3>
+  <p>Op 15 februari 1974 kondigde premier Arron aan: Suriname wordt onafhankelijk. Per 25 november 1975. Zonder dat dit tijdens de campagne was beloofd. De VHP protesteerde — Lachmon had gewaarschuwd voor de risico's. Maar de NPK-meerderheid luisterde niet. Alleen al in 1975 verlieten 38.000 mensen het land richting Nederland.</p>
+
+  <h3 class="section-title">§4. De nacht die alles vernietigde: 25 februari 1980</h3>
+  <p>In de vroege ochtend van 25 februari 1980 reden militaire voertuigen door Paramaribo. Jonge sergeanten onder leiding van Desiré Bouterse namen de macht over. Premier Arron en andere politici werden opgepakt. De grondwet werd buiten werking gesteld.</p>
+  <p>In de nacht van 7 op 8 december 1982 werden vijftien prominente Surinamers uit hun huizen gehaald en naar Fort Zeelandia gebracht. De volgende ochtend werden ze doodgeschoten. Hun namen verdienen een plek in elk boek over Suriname: André Kamperveen, Bram Behr, Cyrill Daal, Eddy Hoost, Frank Wijngaarde, Gerard Leckie, Harold Riedewald, Jozef Slagveer, Kenneth Goncalves, Lesley Rahman, Jiwansingh Sheombar, John Baboeram, Robby Sohansingh, Surindre Rambocus, Sugrim Oemrawsingh.</p>
+
+  <h3 class="section-title">§5. De terugkeer van de democratie: 1987–2025</h3>
+  <p>Op 25 november 1987 mochten de Surinamers opnieuw stemmen. Opkomst: bijna 92 procent. Het Front won 40 van de 51 zetels. Na de telefooncoup van 1990 keerde Ronald Venetiaan terug als president. De democratie herstelde zich. Bouterse won via diezelfde democratie in 2010 en 2015. In 2020 sloeg de grootste aardverschuiving ooit: de VHP won 39,4% en Santokhi werd president. Op 25 mei 2025 won de NDP onder Jennifer Geerlings-Simons — de eerste vrouwelijke president van Suriname.</p>
+
+  <!-- CHART 1: TIJDLIJN -->
+  <div class="chart-block" id="chart-tijdlijn">
+    <p class="chart-intro">De onderstaande tijdlijn toont 159 jaar Surinaamse politieke geschiedenis. Klik op een jaar om de details te lezen. De kleuren staan voor de vier grote periodes: de koloniale tijd, de eerste democratie, de militaire periode en de tweede democratie. Kijkt u hoe lang de koloniale periode duurde — en hoe scherp de breuk in 1980 was.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Interactieve tijdlijn — Suriname 1866 tot 2025</div>
+      <div style="position:relative;height:50px;margin-bottom:1rem;border-radius:6px;overflow:hidden;display:flex;">
+        <div style="flex:83;background:#AFA9EC;display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;font-weight:700;color:white;font-family:sans-serif;">Koloniaal 1866–1949</span></div>
+        <div style="flex:31;background:#5DCAA5;display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;font-weight:700;color:white;font-family:sans-serif;">Democratie I</span></div>
+        <div style="flex:7;background:#D85A30;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;font-weight:700;color:white;font-family:sans-serif;">Mil.</span></div>
+        <div style="flex:38;background:#378ADD;display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;font-weight:700;color:white;font-family:sans-serif;">Democratie II 1987–2025</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem;" id="tl-events"><div class="tl-event" onclick="showTlDetail(0)" style="border-color:#AFA9EC20;">
+      <div class="tl-year" style="color:#AFA9EC">1866</div>
+      <div class="tl-label">Koloniale Staten opgericht</div>
+    </div><div class="tl-event" onclick="showTlDetail(1)" style="border-color:#AFA9EC20;">
+      <div class="tl-year" style="color:#AFA9EC">1901</div>
+      <div class="tl-label">Eerste hervorming</div>
+    </div><div class="tl-event" onclick="showTlDetail(2)" style="border-color:#AFA9EC20;">
+      <div class="tl-year" style="color:#AFA9EC">1937</div>
+      <div class="tl-label">Staten van Suriname</div>
+    </div><div class="tl-event" onclick="showTlDetail(3)" style="border-color:#5DCAA520;">
+      <div class="tl-year" style="color:#5DCAA5">1949</div>
+      <div class="tl-label">Algemeen Kiesrecht</div>
+    </div><div class="tl-event" onclick="showTlDetail(4)" style="border-color:#5DCAA520;">
+      <div class="tl-year" style="color:#5DCAA5">1975</div>
+      <div class="tl-label">Onafhankelijkheid</div>
+    </div><div class="tl-event" onclick="showTlDetail(5)" style="border-color:#D85A3020;">
+      <div class="tl-year" style="color:#D85A30">1980</div>
+      <div class="tl-label">Militaire coup</div>
+    </div><div class="tl-event" onclick="showTlDetail(6)" style="border-color:#D85A3020;">
+      <div class="tl-year" style="color:#D85A30">1982</div>
+      <div class="tl-label">8 decembermoorden</div>
+    </div><div class="tl-event" onclick="showTlDetail(7)" style="border-color:#378ADD20;">
+      <div class="tl-year" style="color:#378ADD">1987</div>
+      <div class="tl-label">Terugkeer democratie</div>
+    </div><div class="tl-event" onclick="showTlDetail(8)" style="border-color:#378ADD20;">
+      <div class="tl-year" style="color:#378ADD">1990</div>
+      <div class="tl-label">Telefooncoup</div>
+    </div><div class="tl-event" onclick="showTlDetail(9)" style="border-color:#378ADD20;">
+      <div class="tl-year" style="color:#378ADD">2010</div>
+      <div class="tl-label">Bouterse president</div>
+    </div><div class="tl-event" onclick="showTlDetail(10)" style="border-color:#378ADD20;">
+      <div class="tl-year" style="color:#378ADD">2015</div>
+      <div class="tl-label">NDP-hoogtepunt</div>
+    </div><div class="tl-event" onclick="showTlDetail(11)" style="border-color:#378ADD20;">
+      <div class="tl-year" style="color:#378ADD">2020</div>
+      <div class="tl-label">VHP historisch</div>
+    </div><div class="tl-event" onclick="showTlDetail(12)" style="border-color:#378ADD20;">
+      <div class="tl-year" style="color:#378ADD">2025</div>
+      <div class="tl-label">Eerste vrouwelijke president</div>
+    </div></div>
+      <div id="tl-detail" class="tl-detail">
+        <p style="color:#aaa;font-family:sans-serif;font-size:13px;">← Klik op een jaar hierboven</p>
+      </div>
+      <p class="chart-explain">De vier kleuren vertegenwoordigen vier politieke tijdperken. <strong>Paars</strong>: de koloniale periode, 83 jaar lang een klein elitaire kiesrecht. <strong>Groen</strong>: de eerste democratie 1949–1980, opgebouwd door Lachmon en Pengel. <strong>Rood</strong>: de militaire periode, zeven jaar zonder vrije verkiezingen en met de moorden van 8 december 1982. <strong>Blauw</strong>: de tweede democratie, vol turbulentie maar nooit meer onderbroken. Elke kleur is een generatie Surinamers die anders naar hun land keken.</p>
+    </div>
+  </div>
+
+  <div class="kern">
+    <div class="kern-label">Kern in drie zinnen</div>
+    <p>Suriname begon als een kolonie waar slechts een elite mocht meebeslissen. Het Algemeen Kiesrecht van 1949 gaf elke Surinamer voor het eerst een stem, maar de democratie werd in 1980 bruut onderbroken door een militaire coup en de moorden van 8 december 1982. Sinds 1987 heeft Suriname de democratie stap voor stap heropgebouwd — en elke verkiezing sindsdien is het bewijs dat dit kleine land vasthoudt aan het recht van zijn volk om zelf te kiezen.</p>
+  </div>
+</div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ═══ DEEL 2 ═══ -->
+<div id="deel2">
+<div class="section-header">
+  <p class="part-label">Deel 2</p>
+  <h1 class="part-title">De spelregels</h1>
+  <h2 class="chapter">Hoe werken de Surinaamse verkiezingen?</h2>
+  <div class="divider"></div>
+</div>
+<div class="section">
+  <p>Het is 25 mei 2025. Kwart voor acht 's ochtends. In ressort Blauwgrond staat Ramesh — een vijftigjarige leraar — voor stembureau 14. Hij heeft zijn identiteitskaart bij zich. Zijn vrouw staat naast hem. Zijn achttienjarige dochter — haar eerste verkiezing — staat verderop in de rij.</p>
+
+  <h3 class="section-title">§1. Tien kieskringen — één land</h3>
+  <p>Suriname is verdeeld in tien districten, elk tegelijk één kieskring. Van het overvolle Paramaribo — 275 stembureaus in een stad van 240.000 inwoners — tot Sipaliwini, een district zo groot als vier keer Nederland, met slechts 59 stembureaus bereikbaar per boot of vliegtuig. In 2025 waren er landelijk 673 stembureaus actief.</p>
+
+  <h3 class="section-title">§2. Het nieuwe kiesstelsel van 2025</h3>
+  <p>Tot en met 2020 kozen kiezers alleen kandidaten uit hun eigen district — met 'goedkope' en 'dure' zetels als gevolg. Op 25 mei 2025 veranderde dit. Onder het nieuwe <strong>Landelijke Evenredigheidsstelsel</strong> mag elke kiezer stemmen op élke kandidaat van zijn partij. De 51 zetels worden verdeeld op basis van het landelijke totaal. Eén stem in Coronie telt even zwaar als één stem in Paramaribo. De kiesdeler was 273.776 ÷ 51 = 5.368 stemmen.</p>
+
+  <!-- CHART 2: OPKOMST -->
+  <div class="chart-block" id="chart-opkomst">
+    <p class="chart-intro">Niet alle Surinamers zijn even makkelijk te bereiken op verkiezingsdag. De grafiek toont per district hoeveel mensen geregistreerd staan én hoeveel er kwamen stemmen. Selecteer een district om de details te zien. Waar zit de grootste kloof?</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Opkomst per district — 25 mei 2025</div>
+      <div class="ctrl-row" id="opkomst-filters"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="chart-canvas-wrap" style="height:300px;"><canvas id="chartOpkomst" width="499" height="450" style="display: block; box-sizing: border-box; height: 300px; width: 333px;"></canvas></div>
+        <div id="opkomst-detail" style="display:flex;flex-direction:column;justify-content:center;padding:1rem;background:#f8f9fb;border-radius:8px;">
+          <p style="font-family:sans-serif;font-size:12px;color:#aaa;">← Klik op een district</p>
+        </div>
+      </div>
+      <p class="chart-explain">Sipaliwini springt eruit: slechts 44,4% opkomst. Dat is geen onverschilligheid — het is logistiek. Wie in Tapanahony woont, moet soms uren varen om een stembureau te bereiken. Wanica heeft de hoogste absolute opkomst: ruim 71.000 mensen. Paramaribo en Wanica samen zijn goed voor meer dan 66% van alle uitgebrachte stemmen in het land.</p>
+    </div>
+  </div>
+
+  <h3 class="section-title">§3. Coalitievorming en de presidentsverkiezing</h3>
+  <p>De winnaar van de verkiezingen wordt niet automatisch president. De Nationale Assemblée kiest de president met een tweederde meerderheid — minimaal 34 van de 51 stemmen. Als die meerderheid niet wordt gehaald, wordt een Volksassemblee bijeengeroepen. In 2025 behaalde de NDP 18 zetels — ver van de 34. Pas met steun van NPS, PL, A-20, BEP én de gedoogsteun van de ABOP kwam de coalitie op 34.</p>
+
+  <div class="kern">
+    <div class="kern-label">Kern in drie zinnen</div>
+    <p>Suriname is verdeeld in tien kieskringen van grote stad tot uitgestrekt oerwoud. Bij de verkiezingen van 2025 werd voor het eerst het Landelijke Evenredigheidsstelsel gebruikt, waarbij elke stem in het hele land even zwaar telt. De winnaar wordt niet automatisch president: de Nationale Assemblée kiest met tweederde meerderheid, wat coalities onvermijdelijk maakt.</p>
+  </div>
+</div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ═══ DEEL 3 ═══ -->
+<div id="deel3">
+<div class="section-header">
+  <p class="part-label">Deel 3</p>
+  <h1 class="part-title">De grote spelers</h1>
+  <h2 class="chapter">Vier partijen, vier karakters, zeventig jaar politiek</h2>
+  <div class="divider"></div>
+</div>
+<div class="section">
+
+  <!-- CHART 3: ZETELVERLOOP -->
+  <div class="chart-block" id="chart-zetelverloop">
+    <p class="chart-intro">Er is geen betere manier om de Surinaamse politiek te begrijpen dan de zetels van de grote partijen over negen verkiezingen te volgen. Klik op een partij in de legenda om haar in en uit te schakelen. Welke lijn stijgt? Welke daalt? Waar zit het grootste keerpunt?</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Zetelverloop grote partijen — 1987 tot 2025 (interactief)</div>
+      <div class="chart-canvas-wrap" style="height:320px;"><canvas id="chartZetelverloop" width="1024" height="480" style="display: block; box-sizing: border-box; height: 320px; width: 682px;"></canvas></div>
+      <p class="chart-explain">Kijk naar de NDP-lijn: begint in 1987 laag met 3 zetels — het jaar dat de democratie terugkeerde na de coup die Bouterse zelf had gepleegd — en klimt gestaag omhoog naar 26 zetels in 2015. Dan de dramatische val naar 16 in 2020, en herstel naar 18 in 2025. De VHP-lijn vertelt het spiegelbeeldige verhaal: jarenlang stabiel, dan de explosie naar 20 zetels in 2020, dan terugval. De NPS-lijn is het meest schrijnend: van 14 naar een historisch dieptepunt van 2 in 2015, gered door het nieuwe kiesstelsel naar 6 in 2025.</p>
+    </div>
+  </div>
+
+  <h3 class="section-title">§1. De VHP — van contractarbeidersstem naar staatsdragende partij</h3>
+  <p>In 1949 zit een jonge advocaat aan zijn bureau in Nieuw-Nickerie. Zijn naam is Jagernath Lachmon — 33 jaar oud. Hij heeft één missie: politieke macht halen voor de Hindostaanse gemeenschap. Wat Lachmon bijzonder maakte, was zijn doorzicht: een partij die alleen voor haar eigen gemeenschap spreekt, verliest uiteindelijk. Vandaar de verbroederingspolitiek. Vandaar het moment in 1955 dat hij een gewonnen zetel opgaf om zijn politieke concurrent Pengel een kans te geven.</p>
+  <p>Onder Chandrikapersad Santokhi maakte de VHP haar historische sprong: bij de verkiezingen van 2020 behaalde zij 108.378 stemmen — bijna veertig procent. In 2025 verloor de VHP terrein en eindigde op 17 zetels — één minder dan de NDP.</p>
+
+  <h3 class="section-title">§2. De NPS — de partij die alles had</h3>
+  <p>Johan Adolf Pengel gaf de NPS haar ziel. Hij was de eerste echte volksleider van Suriname — luid, kleurrijk, sprekend in het Sranantongo. In de periode 1949 tot 1980 zat de NPS 24 van de 31 jaar in de regering. In 2015 bereikte ze haar historisch dieptepunt: slechts 6,2 procent en 2 zetels. In 2025 herstelde ze naar 6 zetels — dankzij het nieuwe evenredige stelsel.</p>
+
+  <h3 class="section-title">§3. De NDP — de partij van de comeback</h3>
+  <p>Geen partij in de Surinaamse geschiedenis draagt meer tegenstellingen in zich dan de NDP. Opgericht in 1987 door dezelfde man die de democratie zeven jaar eerder had vernietigd. In 2010 werd Bouterse via democratische weg president. In 2015 haalde de NDP haar hoogtepunt: 45,5% en 26 zetels. Na de val naar 16 in 2020 nam Jennifer Geerlings-Simons het roer over en leidde de partij naar herstel: 18 zetels en de eerste vrouwelijke president van Suriname.</p>
+
+  <h3 class="section-title">§4. De ABOP en de PL — kleine partijen, grote verhalen</h3>
+  <p>Ronnie Brusswijk — ooit guerrillaleider, ooit veroordeeld voor drugshandel — werd in 2020 vicepresident naast Santokhi. Twee voormalige vijanden die samen Suriname bestuurden. De PL van Paul Somohardjo is de stem van de Javaanse gemeenschap: nooit groot, altijd aanwezig, altijd onmisbaar in coalitieonderhandelingen.</p>
+
+  <!-- CHART 4: VERKIEZINGEN GESTAPELD -->
+  <div class="chart-block" id="chart-verkiezingen">
+    <p class="chart-intro">Alle negen verkiezingen van 1987 tot 2025 naast elkaar, als gestapelde balken. Elke kleur is een partij, elke balk is een jaar. De totale hoogte is altijd 51 — de zetels van De Nationale Assemblée. De stippellijn op 34 is de tweederde meerderheid die nodig is om een president te kiezen. Hover over een balk voor de details.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Zetelverdeling per verkiezing — 1987 tot 2025</div>
+      <div class="chart-canvas-wrap" style="height:350px;"><canvas id="chartVerkiezingen" width="1024" height="525" style="display: block; box-sizing: border-box; height: 350px; width: 682px;"></canvas></div>
+      <p class="chart-explain">De stippellijn op 34 zetels is minstens zo belangrijk als de balken zelf. In 2015 reikt de NDP-balk bijna tot 34 in haar eentje — Bouterse had bijna genoeg om alleen te regeren. In 2020 is de VHP-balk groot maar haalt 34 niet: Santokhi moest met de ABOP samenwerken. In 2025 zitten er zeven partijen in het parlement — geen enkele in de buurt van 34. Kijk ook naar de groene NPS-laag: per verkiezing dunner, bijna onzichtbaar in 2015, dan een kleine opleving in 2025.</p>
+    </div>
+  </div>
+
+  <div class="kern">
+    <div class="kern-label">Kern in drie zinnen</div>
+    <p>De Surinaamse politiek wordt gedomineerd door vier partijen met sterk verschillende karakters: de VHP als stem van de Hindostaanse gemeenschap die groeide tot brede volkspartij, de NPS als eens dominante Creoolse kracht, de NDP als paradoxale partij die de democratie verwoestte én won, en de ABOP als de stem van de Marrons. Geen enkele partij heeft ooit permanent de macht gehad. De Surinaamse kiezer bestraft en beloont — en doet dat elke vijf jaar opnieuw.</p>
+  </div>
+</div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ═══ DEEL 4 ═══ -->
+<div id="deel4">
+<div class="section-header">
+  <p class="part-label">Deel 4</p>
+  <h1 class="part-title">Het ongemakkelijke gesprek</h1>
+  <h2 class="chapter">Etniciteit en politiek in Suriname</h2>
+  <div class="divider"></div>
+</div>
+<div class="section">
+  <p>In november 2025 zat ex-vice-president Robert Ameerali in een televisiestudio en analyseerde de verkiezingsuitslag op basis van etniciteit. Niemand onderbrak hem. Niemand noemde hem racist. Want Ameerali deed iets dat veel mensen in Suriname ten onrechte vermijden: hij beschreef de werkelijkheid. Dit hoofdstuk doet hetzelfde.</p>
+
+  <!-- CHART 5: ETNICITEIT -->
+  <div class="chart-block" id="chart-etniciteit">
+    <p class="chart-intro">Om de Surinaamse politiek te begrijpen, moet je eerst de Surinaamse samenleving begrijpen. Geen enkel land ter wereld heeft dezelfde mix van bevolkingsgroepen als Suriname. De grafiek toont de verdeling op basis van de volkstelling van 2012. Klik op een groep voor meer informatie.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Etnische samenstelling van Suriname — Census 2012</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:center;">
+        <div class="chart-canvas-wrap" style="height:280px;"><canvas id="chartEtniciteit" width="499" height="420" style="display: block; box-sizing: border-box; height: 280px; width: 333px;"></canvas></div>
+        <div id="etniciteit-detail" style="font-family:sans-serif;font-size:13px;padding:1rem;background:#f8f9fb;border-radius:8px;">
+          <p style="color:#aaa;">← Klik op een groep</p>
+        </div>
+      </div>
+      <p class="chart-explain">Geen enkele groep heeft een meerderheid. Hindostanen zijn de grootste groep met 27,4% — maar 72,6% van de bevolking is geen Hindostaan. Marrons zijn de snelst groeiende groep: 21,7%. Dit mozaïek maakt coalitievorming niet alleen politiek handig, maar wiskundig noodzakelijk. Geen enkele partij kan het zich veroorloven om alleen haar eigen etnische achterban te bedienen.</p>
+    </div>
+  </div>
+
+  <!-- CHART 6: PICOLET -->
+  <div class="chart-block" id="chart-picolet">
+    <p class="chart-intro">Elke partij zegt officieel: "Wij zijn een nationale partij voor alle Surinamers." En elke partij maakt dat waar op de kandidatenlijst — terwijl ze tegelijk weet welke kleur haar kern heeft. Dit noemt men de 'picoletfilosofie': met een picolet (zangvogel) vang je een andere picolet. Selecteer een partij om haar lijstsamenstelling te bekijken.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">De picoletfilosofie — etnische samenstelling kandidatenlijsten 2025</div>
+      <div class="ctrl-row" id="picolet-ctrl"><button class="ctrl-btn active" style="border-color: rgb(55, 138, 221); background: rgb(55, 138, 221); color: white;">VHP</button><button class="ctrl-btn" style="border-color: rgb(216, 90, 48);">NDP</button><button class="ctrl-btn" style="border-color: rgb(93, 202, 165);">ABOP</button><button class="ctrl-btn" style="border-color: rgb(159, 225, 203);">NPS</button></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:center;">
+        <div class="chart-canvas-wrap" style="height:260px;"><canvas id="chartPicolet" width="499" height="390" style="display: block; box-sizing: border-box; height: 260px; width: 333px;"></canvas></div>
+        <div id="picolet-detail" style="font-family:sans-serif;font-size:13px;padding:1rem;background:#f8f9fb;border-radius:8px;">
+    <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:#378ADD">VHP — 51 kandidaten</div>
+    <div style="font-size:12px;color:#555;line-height:1.7;">De VHP had 51% Hindostaanse kandidaten — logisch, dat is haar kern. Maar ook 7 Javanen (14%) en 18 anderen (35%). Van haar 87.032 stemmen came 84% van Hindostaanse kiezers, 13% van Javanen.</div>
+    <div style="margin-top:10px;"><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px;"><span style="color:#378ADD;font-weight:600;">Hindostaans</span><span>26 kandidaten (51%)</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px;"><span style="color:#EF9F27;font-weight:600;">Javaans</span><span>7 kandidaten (14%)</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px;"><span style="color:#B4B2A9;font-weight:600;">Creools/mix</span><span>18 kandidaten (35%)</span></div></div></div>
+      </div>
+      <p class="chart-explain">De VHP heeft 51% Hindostaanse kandidaten — logisch, dat is haar kern — maar tegelijk 14% Javanen en 35% anderen. De NDP is het meest divers: 37% Creools/gemengd, maar 27% Hindostaans, 20% Marron en 16% Javaans. De ABOP heeft haar Marron-identiteit (53%) stevig verankerd maar voegt er Hindostanen, Javanen en Inheemsen aan toe.</p>
+    </div>
+  </div>
+
+  <!-- CHART 7: STEMGEDRAG -->
+  <div class="chart-block" id="chart-stemgedrag">
+    <p class="chart-intro">De vraag is dan: hoe stemden kiezers werkelijk? Bleef iedereen trouw aan 'zijn' partij, of kruisen de etnische stromen? De grafiek toont het geschatte etnische stemgedrag per partij op 25 mei 2025. Selecteer een partij om de verdeling te zien.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Etnisch stemgedrag per partij — 25 mei 2025</div>
+      <div class="ctrl-row" id="stemgedrag-ctrl"><button class="ctrl-btn active" style="border-color: rgb(55, 138, 221); background: rgb(55, 138, 221); color: white;">VHP</button><button class="ctrl-btn" style="border-color: rgb(216, 90, 48);">NDP</button><button class="ctrl-btn" style="border-color: rgb(93, 202, 165);">ABOP</button><button class="ctrl-btn" style="border-color: rgb(159, 225, 203);">NPS</button></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:center;">
+        <div class="chart-canvas-wrap" style="height:260px;"><canvas id="chartStemgedrag" width="499" height="390" style="display: block; box-sizing: border-box; height: 260px; width: 333px;"></canvas></div>
+        <div id="stemgedrag-detail" style="font-family:sans-serif;font-size:13px;padding:1rem;background:#f8f9fb;border-radius:8px;">
+    <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:#378ADD">VHP</div>
+    <div style="font-size:12px;color:#555;line-height:1.7;">84,2% van de VHP-stemmen kwamen van Hindostaanse kiezers. Maar 12,9% van Javanen — een significante minderheid. Santokhi behaalde 45.894 stemmen — bijna negen keer de kiesdeler.</div>
+    <div style="margin-top:10px;"><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px;"><span style="color:#378ADD;font-weight:600;">Hindostaans</span><span>84.2%</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px;"><span style="color:#EF9F27;font-weight:600;">Javaans</span><span>12.9%</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px;"><span style="color:#B4B2A9;font-weight:600;">Overig</span><span>2.9%</span></div></div></div>
+      </div>
+      <p class="chart-explain">Bij de NDP is het echt verrassend: meer dan een kwart van haar stemmen — 25,5% — came van Hindostaanse kiezers. De 14 Hindostaanse NDP-kandidaten haalden samen 23.830 stemmen. Zonder die stemmen zou de NDP niet de grootste partij zijn geworden. De ABOP is het meest homogeen: 93% Marron. Etniciteit en politiek zijn in Suriname nauw verweven — maar nooit simpel.</p>
+    </div>
+  </div>
+
+  <div class="kern">
+    <div class="kern-label">Kern in drie zinnen</div>
+    <p>Suriname is een multi-etnisch land waarin geen enkele groep een meerderheid vormt — wat samenwerking wiskundig noodzakelijk maakt. Elke partij past de 'picoletfilosofie' toe: kandidatenlijsten die alle gemeenschappen vertegenwoordigen, terwijl de kern van de aanhang etnisch gekleurd blijft. De uitdaging is om etnische vertegenwoordiging te omarmen zonder te vervallen in etnische uitsluiting.</p>
+  </div>
+</div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ═══ DEEL 5 ═══ -->
+<div id="deel5">
+<div class="section-header">
+  <p class="part-label">Deel 5</p>
+  <h1 class="part-title">Verkiezing voor verkiezing</h1>
+  <h2 class="chapter">De scharniermomenten van de Surinaamse democratie</h2>
+  <div class="divider"></div>
+</div>
+<div class="section">
+  <p>Er is iets geks aan de datum 25 mei in Suriname. Bijna elke grote verkiezing in de democratische periode valt op die dag. De 25ste mei is een verankerde traditie, een nationaal ritueel. Maar niet alle 25-mei-verkiezingen zijn gelijk. Sommige hebben de politieke kaart volledig herschreven.</p>
+
+  <h3 class="section-title">Alle verkiezingen 1987–2025 — klik voor het verhaal</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0;" id="vk-years"><button class="ctrl-btn" onclick="showVk(0)" style="border-color:#5DCAA540;" id="vkbtn-0">1987</button><button class="ctrl-btn" onclick="showVk(1)" style="border-color:#5DCAA540;" id="vkbtn-1">1991</button><button class="ctrl-btn" onclick="showVk(2)" style="border-color:#D85A3040;" id="vkbtn-2">1996</button><button class="ctrl-btn" onclick="showVk(3)" style="border-color:#5DCAA540;" id="vkbtn-3">2000</button><button class="ctrl-btn" onclick="showVk(4)" style="border-color:#5DCAA540;" id="vkbtn-4">2005</button><button class="ctrl-btn" onclick="showVk(5)" style="border-color:#D85A3040;" id="vkbtn-5">2010</button><button class="ctrl-btn" onclick="showVk(6)" style="border-color:#D85A3040;" id="vkbtn-6">2015</button><button class="ctrl-btn" onclick="showVk(7)" style="border-color:#378ADD40;" id="vkbtn-7">2020</button><button class="ctrl-btn active" onclick="showVk(8)" style="border-color: rgba(216, 90, 48, 0.25); background: rgb(216, 90, 48); color: white;" id="vkbtn-8">2025</button></div>
+  <div id="vk-detail" style="background:white;border:1px solid var(--border);border-radius:10px;padding:1.5rem;min-height:200px;">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;">
+      <span style="font-size:2rem;font-weight:700;color:#D85A30;font-family:sans-serif;">2025</span>
+      <span style="font-family:sans-serif;font-size:13px;color:#aaa;">25 mei 2025</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:1rem;">
+      <div style="background:#f8f9fb;border-radius:6px;padding:8px 10px;"><div style="font-size:10px;font-family:sans-serif;color:#aaa;margin-bottom:2px;">Winnaar</div><div style="font-size:13px;font-weight:700;color:#D85A30;">NDP-coalitie</div></div>
+      <div style="background:#f8f9fb;border-radius:6px;padding:8px 10px;"><div style="font-size:10px;font-family:sans-serif;color:#aaa;margin-bottom:2px;">Zetels winnaar</div><div style="font-size:13px;font-weight:700;">18/51</div></div>
+      <div style="background:#f8f9fb;border-radius:6px;padding:8px 10px;"><div style="font-size:10px;font-family:sans-serif;color:#aaa;margin-bottom:2px;">Opkomst</div><div style="font-size:13px;font-weight:700;">69,4%</div></div>
+      <div style="background:#f8f9fb;border-radius:6px;padding:8px 10px;"><div style="font-size:10px;font-family:sans-serif;color:#aaa;margin-bottom:2px;">President</div><div style="font-size:12px;font-weight:700;">Jennifer Geerlings-Simons (NDP)</div></div>
+    </div>
+    <p style="line-height:1.8;color:#444;font-size:0.95rem;">Na vijf jaar pijnlijke bezuinigingen verloor de VHP terrein. De NDP onder Jennifer Geerlings-Simons maakte haar comeback: 18 zetels en 34,2%. Een verschil van slechts 6.513 stemmen op 273.776 uitgebrachte stemmen. Geerlings-Simons wordt de eerste vrouwelijke president van Suriname. Het nieuwe evenredige stelsel brengt zeven partijen in het parlement.</p></div>
+
+  <div class="kern" style="margin-top:2rem;">
+    <div class="kern-label">Kern in drie zinnen</div>
+    <p>De Surinaamse verkiezingsgeschiedenis is een verhaal van politieke volatiliteit: geen enkele partij houdt de macht lang. De drie grootste scharniermomenten waren 1987 (terugkeer van de democratie), 2010 (Bouterse via de stembus) en 2020 (historische VHP-overwinning). De rode draad is niet welke partij wint, maar dat er vrij gestemd kán worden.</p>
+  </div>
+</div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ═══ DEEL 6 ═══ -->
+<div id="deel6">
+<div class="section-header">
+  <p class="part-label">Deel 6</p>
+  <h1 class="part-title">De dag zelf</h1>
+  <h2 class="chapter">Wat er precies gebeurde op 25 mei 2025</h2>
+  <div class="divider"></div>
+</div>
+<div class="section">
+  <p><strong>6.513 stemmen.</strong> Dat is het verschil tussen winnaar en verliezer bij de verkiezingen van 25 mei 2025. Op 273.776 uitgebrachte stemmen haalde de NDP 93.545 en de VHP 87.032. Minder dan 2,4% scheiding. Zo werkt democratie.</p>
+
+  <!-- CHART 8: UITSLAG LANDELIJK -->
+  <div class="chart-block" id="chart-uitslag">
+    <p class="chart-intro">De uitslag van 25 mei 2025 vanuit twee invalshoeken: links de stemmen per partij (hoe populair was elke partij?), rechts de zetelverdeling (wie zit er in het parlement?). Hover over de grafieken voor de exacte cijfers.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Verkiezingsuitslag 25 mei 2025 — landelijk</div>
+      <div style="display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;">
+        <div>
+          <div class="chart-canvas-wrap" style="height:280px;"><canvas id="chartUitslag" width="538" height="420" style="display: block; box-sizing: border-box; height: 280px; width: 358px;"></canvas></div>
+        </div>
+        <div>
+          <div class="chart-canvas-wrap" style="height:280px;"><canvas id="chartZetels" width="450" height="420" style="display: block; box-sizing: border-box; height: 280px; width: 300px;"></canvas></div>
+        </div>
+      </div>
+      <p class="chart-explain">De NDP won met 18 zetels — één meer dan de VHP. Het getal 51 in het midden van de donut is het hart van de Surinaamse democratie. Om te regeren heb je 34 van die 51 nodig. De NDP behaalde er 18 — 53% van de weg. De rest moest via coalitie-onderhandeling worden gevonden. Met NPS, PL, A-20, BEP én de gedoogsteun van de ABOP kwam de coalitie op precies 34.</p>
+    </div>
+  </div>
+
+  <!-- CHART 9: PER DISTRICT -->
+  <div class="chart-block" id="chart-district">
+    <p class="chart-intro">Een landelijk gemiddelde verbergt enorme regionale verschillen. Suriname is politiek geen homogeen land — het is een lappendeken van bolwerken en bastions. De grafiek toont per district hoe de stemmen waren verdeeld. Klik op een district voor de details.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Stemverdeling per district — 25 mei 2025</div>
+      <div class="chart-canvas-wrap" style="height:360px;"><canvas id="chartDistrict" width="1024" height="540" style="display: block; box-sizing: border-box; height: 360px; width: 682px;"></canvas></div>
+      <div id="district-detail" style="margin-top:1rem;padding:1rem;background:#f8f9fb;border-radius:8px;font-family:sans-serif;font-size:13px;display:none;"></div>
+      <p class="chart-explain">Wanica is VHP-blauw: bijna 46%. Nickerie: 54% voor de VHP — het rijstdistrict is een VHP-bolwerk. Maar kijk naar Marowijne: 68% ABOP. Brusswijk is daar geen politicus maar een legende. Para en Sipaliwini zijn diep oranje NDP. Coronie — slechts 1.461 stemmen — gaat voor meer dan de helft naar de NDP, terwijl het historisch een NPS-district was. Elk district is een wereld op zich.</p>
+    </div>
+  </div>
+
+  <!-- CHART 10: TOPKANDIDATEN -->
+  <div class="chart-block" id="chart-topkandidaten">
+    <p class="chart-intro">Van 713 kandidaten haalden er slechts negen de kiesdeler van 5.368 stemmen op eigen kracht. Negen mensen die populair genoeg waren om een zetel te verdienen zonder hulp van de partijenlijst. De oranje stippellijn toont de drempel. Wie staat erboven? Hover voor de details.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Topkandidaten — wie haalde de kiesdeler op eigen kracht?</div>
+      <div class="chart-canvas-wrap" style="height:300px;"><canvas id="chartTopkandidaten" width="1024" height="450" style="display: block; box-sizing: border-box; height: 300px; width: 682px;"></canvas></div>
+      <p class="chart-explain">Santokhi staat ver bovenuit: 45.894 stemmen, bijna negen keer de kiesdeler. Dat zijn niet alleen VHP-stemmers — dat zijn mensen van alle achtergronden die zeggen: deze man vertrouw ik. Simons volgt met 41.729. Dan Adhin en Brusswijk met elk bijna 19.000. Zes van de negen komen van slechts twee partijen: VHP en NDP. Van alle 713 kandidaten hadden de meesten niet genoeg stemmen om op eigen kracht in het parlement te komen.</p>
+    </div>
+  </div>
+
+  <div class="kern">
+    <div class="kern-label">Kern in drie zinnen</div>
+    <p>De verkiezingen van 25 mei 2025 werden beslist door een marge van 6.513 stemmen. Jennifer Geerlings-Simons werd de eerste vrouwelijke president van Suriname, in een coalitie van zeven partijen. De werkelijke winnaar van 2025 was misschien wel het kiesstelsel zelf: voor het eerst konden kleine partijen als A-20, BEP en PL landelijk meetellen.</p>
+  </div>
+</div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ═══ DEEL 7 ═══ -->
+<div id="deel7">
+<div class="section-header">
+  <p class="part-label">Deel 7</p>
+  <h1 class="part-title">Wat nu?</h1>
+  <h2 class="chapter">Lessen, dromen en de toekomst van de Surinaamse democratie</h2>
+  <div class="divider"></div>
+</div>
+<div class="section">
+  <p>Stel je voor: een Marron-man van zestig jaar, diep in het binnenland van Sipaliwini. Op 25 mei 2025 is hij opgestaan voor zonsopgang, heeft zijn kano te water gelaten en heeft drie uur gevaren naar het dichtstbijzijnde stembureau. Zijn stem telt even zwaar als die van de zakenman in Paramaribo.</p>
+
+  <!-- CHART 11: DEMOCRATIE INDICATOREN -->
+  <div class="chart-block" id="chart-democratie">
+    <p class="chart-intro">Hoe democratisch is Suriname werkelijk? De grafiek toont zes indicatoren, elk beoordeeld op een schaal van 0 tot 100. Dit zijn doordachte inschattingen op basis van de politieke geschiedenis — geen officiële index. Gebruik ze als startpunt voor discussie. Klik op een indicator voor de toelichting.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Democratische gezondheid van Suriname — inschatting 2025</div>
+      <div style="display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;align-items:center;">
+        <div class="chart-canvas-wrap" style="height:300px;"><canvas id="chartDemocratie" width="592" height="450" style="display: block; box-sizing: border-box; height: 300px; width: 395px;"></canvas></div>
+        <div id="democratie-detail" style="font-family:sans-serif;font-size:13px;padding:1rem;background:#f8f9fb;border-radius:8px;">
+          <p style="color:#aaa;">← Klik op een indicator</p>
+        </div>
+      </div>
+      <p class="chart-explain">Suriname scoort het hoogst op vreedzame machtsoverdracht (92) en vrije verkiezingen (88) — indrukwekkend voor een land dat in 1980 een staatsgreep meemaakte. De laagste score is transparantie en anticorruptie: 48. Dat is onder de grens van voldoende. Corruptie is in Suriname geen uitzondering maar een structureel probleem — in meerdere kabinetten, over meerdere partijen heen.</p>
+    </div>
+  </div>
+
+  <h3 class="section-title">Tien lessen van zeventig jaar democratie</h3>
+  <ol style="padding-left:1.5rem;line-height:2.2;">
+    <li>Democratie is nooit vanzelfsprekend — ze is een gewoonte, een spier die je moet blijven oefenen.</li>
+    <li>Samenwerking is de enige weg — in een land zonder etnische meerderheid is coalitie wiskundig noodzakelijk.</li>
+    <li>Kiezers zijn niet dom — de rekening van slecht bestuur wordt altijd gepresenteerd.</li>
+    <li>Instituties zijn sterker dan individuen — Bouterse probeerde de democratie twee keer te omzeilen, beide keren keerde ze terug.</li>
+    <li>Etniciteit is een feit, geen vijand — erkennen en dealen is beter dan ontkennen.</li>
+    <li>Kleine landen kunnen groot denken — Suriname heeft een grondwet, rechtspraak en vrije pers.</li>
+    <li>De diaspora telt — 390.000 Surinamers in Nederland voelen zich nog verbonden.</li>
+    <li>Het binnenland mag niet vergeten worden — bijna een kwart van de bevolking krijgt onevenredig weinig.</li>
+    <li>Vrouwen waren er al lang klaar voor — 2025 bracht de eerste vrouwelijke president.</li>
+    <li>Het verleden kan niet worden weggeschreven, maar mag de toekomst niet verlammen.</li>
+  </ol>
+
+  <div class="kern">
+    <div class="kern-label">Kern in drie zinnen</div>
+    <p>De Surinaamse democratie is zeventig jaar oud, heeft staatsgrepen, massamoorden en economische crises overleefd — en staat er nog. De komende uitdagingen zijn groot: hoe worden olie-inkomsten eerlijk verdeeld, hoe wordt het binnenland niet vergeten? Maar de basis is er: een land dat elke vijf jaar zijn weg naar de stembus vindt, is een land dat in zichzelf gelooft.</p>
+  </div>
+
+  <blockquote style="margin-top:2rem;">"Ala sani e pasa, ma a bribi e tan." — Alles gaat voorbij, maar het geloof blijft.</blockquote>
+</div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ═══ BIJLAGEN ═══ -->
+<div id="bijlagen">
+<div class="section-header">
+  <p class="part-label">Bijlagen</p>
+  <h1 class="part-title">Het naslagwerk</h1>
+  <h2 class="chapter">Feiten, namen en verhalen</h2>
+  <div class="divider"></div>
+</div>
+<div class="section">
+
+  <!-- BIJLAGE 1: DNA-LEDEN -->
+  <div id="bijlage-dna">
+    <h3 class="section-title">Bijlage 1 — De 51 gekozen DNA-leden op 25 mei 2025</h3>
+    <p>Eenenvijftig mensen. Van de 713 kandidaten haalden slechts 9 de kiesdeler op eigen kracht. De jongste: Chuanrui Wang (VHP, geb. 1991) en Iona Edwards (NDP, geb. 1991). De oudste: Rabindre Parmessar (NDP, geb. 1952). Zoek hieronder op naam of filter op partij.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:1rem 0;" id="dna-filters"><button class="ctrl-btn active">Alle</button><button class="ctrl-btn" style="border-color: rgb(55, 138, 221);">VHP</button><button class="ctrl-btn" style="border-color: rgb(216, 90, 48);">NDP</button><button class="ctrl-btn" style="border-color: rgb(93, 202, 165);">ABOP</button><button class="ctrl-btn" style="border-color: rgb(159, 225, 203);">NPS</button><button class="ctrl-btn" style="border-color: rgb(239, 159, 39);">PL</button><button class="ctrl-btn" style="border-color: rgb(127, 119, 221);">A-20</button><button class="ctrl-btn" style="border-color: rgb(99, 153, 34);">BEP</button></div>
+    <input type="text" id="dna-search" placeholder="Zoek op naam..." style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:1rem;font-family:sans-serif;">
+    <div style="overflow-x:auto;">
+      <table class="data-table" id="dna-table">
+        <thead><tr><th>#</th><th>Naam</th><th>Partij</th><th>Stemmen</th><th>Geb.</th></tr></thead>
+        <tbody id="dna-tbody"><tr><td>1</td><td><strong>Santokhi, Chandrikapersad</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>45.894</td><td>1959</td></tr><tr><td>2</td><td><strong>Dasai, Marciano</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>9.217</td><td>1978</td></tr><tr><td>3</td><td><strong>Mathoera, Krishna</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>10.535</td><td>1963</td></tr><tr><td>4</td><td><strong>Gajadien, Asiskumar</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>1.316</td><td>1967</td></tr><tr><td>5</td><td><strong>Dijksteel, Cheryl</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>246</td><td>1975</td></tr><tr><td>6</td><td><strong>Sharman, Dew</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>2.076</td><td>1965</td></tr><tr><td>7</td><td><strong>Wang, Chuanrui</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>395</td><td>1991</td></tr><tr><td>8</td><td><strong>Van Samson, Cedric</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>467</td><td>1980</td></tr><tr><td>9</td><td><strong>Jogi, Mahinderkoemar</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>3.081</td><td>1961</td></tr><tr><td>10</td><td><strong>Ramdien, Harriëtte</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>143</td><td>1965</td></tr><tr><td>11</td><td><strong>Amatmohamed, Natalie</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>574</td><td>1981</td></tr><tr><td>12</td><td><strong>Raghoenandan, Rawien</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>561</td><td>1981</td></tr><tr><td>13</td><td><strong>Mohan, Roy Ramdath</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>466</td><td>1966</td></tr><tr><td>14</td><td><strong>Lalmahomed, Hakiem</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>605</td><td>1997</td></tr><tr><td>15</td><td><strong>Thakoer, Vidjaiprekash</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>734</td><td>1967</td></tr><tr><td>16</td><td><strong>Jarbandhan, Ameerani</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>141</td><td>1986</td></tr><tr><td>17</td><td><strong>Ramsukul, Kishan</strong></td><td><span class="badge badge-vhp">VHP</span></td><td>865</td><td>1985</td></tr><tr><td>18</td><td><strong>Simons, Jennifer</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>41.729</td><td>1953</td></tr><tr><td>19</td><td><strong>Adhin, Ashwin</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>19.228</td><td>1980</td></tr><tr><td>20</td><td><strong>Waldring, Ingrid</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>6.915</td><td>1961</td></tr><tr><td>21</td><td><strong>Misiekaba, André</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>4.182</td><td>1976</td></tr><tr><td>22</td><td><strong>Cotino, Rossellie</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>501</td><td>1976</td></tr><tr><td>23</td><td><strong>Sadi, Ann</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>1.296</td><td>1959</td></tr><tr><td>24</td><td><strong>Parmessar, Rabindre</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>277</td><td>1952</td></tr><tr><td>25</td><td><strong>Sapoen, Raymond</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>565</td><td>1967</td></tr><tr><td>26</td><td><strong>Tsang, Stephen</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>514</td><td>1973</td></tr><tr><td>27</td><td><strong>Edwards, Iona</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>916</td><td>1991</td></tr><tr><td>28</td><td><strong>Akiemboto, Sergio</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>2.132</td><td>1979</td></tr><tr><td>29</td><td><strong>Bouva, Melvin</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>328</td><td>1982</td></tr><tr><td>30</td><td><strong>Lalbiharie, Jayant</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>2.802</td><td>1990</td></tr><tr><td>31</td><td><strong>Jones, Ebu</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>703</td><td>1979</td></tr><tr><td>32</td><td><strong>Vreedzaam, Jennifer</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>194</td><td>1970</td></tr><tr><td>33</td><td><strong>Afoensoewa, Silvana</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>900</td><td>1989</td></tr><tr><td>34</td><td><strong>Joeloemsingh, Wedprekash</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>153</td><td>1972</td></tr><tr><td>35</td><td><strong>Löche, Tashana</strong></td><td><span class="badge badge-ndp">NDP</span></td><td>326</td><td>1989</td></tr><tr><td>36</td><td><strong>Brusswijk, Ronnie</strong></td><td><span class="badge badge-abop">ABOP</span></td><td>19.178</td><td>1961</td></tr><tr><td>37</td><td><strong>Bee, Marinus</strong></td><td><span class="badge badge-abop">ABOP</span></td><td>2.249</td><td>1971</td></tr><tr><td>38</td><td><strong>Pané, Ines</strong></td><td><span class="badge badge-abop">ABOP</span></td><td>292</td><td>1980</td></tr><tr><td>39</td><td><strong>Vorswijk, Dinotha</strong></td><td><span class="badge badge-abop">ABOP</span></td><td>1.659</td><td>1989</td></tr><tr><td>40</td><td><strong>Sampie, Edgar</strong></td><td><span class="badge badge-abop">ABOP</span></td><td>407</td><td>1992</td></tr><tr><td>41</td><td><strong>Goerdat, Keshawpersad</strong></td><td><span class="badge badge-abop">ABOP</span></td><td>321</td><td>1979</td></tr><tr><td>42</td><td><strong>Rusland, Gregory</strong></td><td><span class="badge badge-nps">NPS</span></td><td>8.533</td><td>1959</td></tr><tr><td>43</td><td><strong>Atompai, Poetini</strong></td><td><span class="badge badge-nps">NPS</span></td><td>6.481</td><td>1991</td></tr><tr><td>44</td><td><strong>Etnel, Patricia</strong></td><td><span class="badge badge-nps">NPS</span></td><td>3.579</td><td>1976</td></tr><tr><td>45</td><td><strong>Pokie, Diana</strong></td><td><span class="badge badge-nps">NPS</span></td><td>2.531</td><td>1979</td></tr><tr><td>46</td><td><strong>Pawiroredjo, Jerrel</strong></td><td><span class="badge badge-nps">NPS</span></td><td>2.785</td><td>1967</td></tr><tr><td>47</td><td><strong>Fatehmahomed, Mohamed</strong></td><td><span class="badge badge-nps">NPS</span></td><td>179</td><td>1981</td></tr><tr><td>48</td><td><strong>Somohardjo, Bronto</strong></td><td><span class="badge badge-pl">PL</span></td><td>4.099</td><td>1980</td></tr><tr><td>49</td><td><strong>Ramsaran, Uraiqoit</strong></td><td><span class="badge badge-pl">PL</span></td><td>2.213</td><td>1988</td></tr><tr><td>50</td><td><strong>Reyme, Steven</strong></td><td><span class="badge badge-a20">A-20</span></td><td>2.457</td><td>1967</td></tr><tr><td>51</td><td><strong>Asabina, Ronny</strong></td><td><span class="badge badge-bep">BEP</span></td><td>2.470</td><td>1968</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BIJLAGE 2: KABINETTEN -->
+  <div id="bijlage-kabinetten" style="margin-top:3rem;">
+    <h3 class="section-title">Bijlage 2 — Drie kabinetten vergeleken</h3>
+    <p>Van 2015 tot 2030 regeerden drie kabinetten Suriname. Elk had een ander karakter. Selecteer een kabinet hieronder.</p>
+    <div class="ctrl-row" id="kab-ctrl"><button class="ctrl-btn active">2025–2030</button><button class="ctrl-btn">2020–2025</button><button class="ctrl-btn">2015–2020</button></div>
+    <div id="kab-content">
+    <div style="margin-bottom:1rem;padding:1rem;background:#f8f9fb;border-radius:8px;font-family:sans-serif;">
+      <div style="font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px;">Kabinet Simons/Rusland — 2025–2030</div>
+      <div style="font-size:12px;color:#777;">President: Jennifer Geerlings-Simons (NDP) &nbsp;·&nbsp; Vicepresident: Gregory Rusland (NPS)</div>
+    </div>
+    <div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Minister</th><th>Portefeuille</th><th>Partij</th></tr></thead><tbody><tr><td><strong>Noersalim, Mike</strong></td><td>Landbouw, Veeteelt en Visserij</td><td><span style="color:#D85A30;font-weight:700;">NDP</span></td></tr><tr><td><strong>Bouva, Melvin</strong></td><td>Buitenlandse Zaken</td><td><span style="color:#D85A30;font-weight:700;">NDP</span></td></tr><tr><td><strong>Wijnerman, Adelien</strong></td><td>Financiën en Planning</td><td><span style="color:#D85A30;font-weight:700;">NDP</span></td></tr><tr><td><strong>Tsang, Stephen</strong></td><td>Openbare Werken</td><td><span style="color:#D85A30;font-weight:700;">NDP</span></td></tr><tr><td><strong>Misiekaba, André</strong></td><td>Volksgezondheid, Welzijn en Arbeid</td><td><span style="color:#D85A30;font-weight:700;">NDP</span></td></tr><tr><td><strong>Gopal, Lalini</strong></td><td>Jeugd- en Sportzaken</td><td><span style="color:#D85A30;font-weight:700;">NDP</span></td></tr><tr><td><strong>Currie, Dirck</strong></td><td>Onderwijs, Wetenschap en Cultuur</td><td><span style="color:#9FE1CB;font-weight:700;">NPS</span></td></tr><tr><td><strong>Pokie, Diana</strong></td><td>Sociale Zaken en Volkshuisvesting</td><td><span style="color:#9FE1CB;font-weight:700;">NPS</span></td></tr><tr><td><strong>Brunings, Patrick</strong></td><td>Olie, Gas en Milieu</td><td><span style="color:#9FE1CB;font-weight:700;">NPS</span></td></tr><tr><td><strong>Abiamofo, David</strong></td><td>Natuurlijke Hulpbronnen</td><td><span style="color:#5DCAA5;font-weight:700;">ABOP</span></td></tr><tr><td><strong>Manorath, Harisch</strong></td><td>Justitie en Politie</td><td><span style="color:#5DCAA5;font-weight:700;">ABOP</span></td></tr><tr><td><strong>Bee, Marinus</strong></td><td>Binnenlandse Zaken</td><td><span style="color:#5DCAA5;font-weight:700;">ABOP</span></td></tr><tr><td><strong>Huur-Soemar, Miguelle</strong></td><td>Regionale Ontwikkeling</td><td><span style="color:#5DCAA5;font-weight:700;">ABOP</span></td></tr><tr><td><strong>Ramsaran, Uraiqoit</strong></td><td>Defensie</td><td><span style="color:#EF9F27;font-weight:700;">PL</span></td></tr><tr><td><strong>Soeropawiro, Stanley</strong></td><td>Grond- en Bosbeleid</td><td><span style="color:#EF9F27;font-weight:700;">PL</span></td></tr><tr><td><strong>Baasaron, Andrew</strong></td><td>Economische Zaken</td><td><span style="color:#7F77DD;font-weight:700;">A-20</span></td></tr><tr><td><strong>Landveld, Raymond</strong></td><td>Toerisme, Communicatie en Transport</td><td><span style="color:#639922;font-weight:700;">BEP</span></td></tr></tbody></table></div></div>
+
+    <!-- CHART 12: RR/DR -->
+    <div class="chart-block" id="chart-rr" style="margin-top:2rem;">
+      <p class="chart-intro">Naast de 51 DNA-leden werden op 25 mei 2025 ook 786 ressorts-raadsleden en 120 districtsraadsleden gekozen — in totaal 957 volksvertegenwoordigers op één dag. De grafiek toont hoe die 786 ressorts-zetels verdeeld zijn per district.</p>
+      <div class="chart-wrap">
+        <div class="chart-title">Ressorts-raadszetels per district en partij — 25 mei 2025</div>
+        <div class="chart-canvas-wrap" style="height:340px;"><canvas id="chartRR" width="1024" height="510" style="display: block; box-sizing: border-box; height: 340px; width: 682px;"></canvas></div>
+        <p class="chart-explain">De NDP won 40% van alle RR-zetels en domineerde het binnenland: in Para (37 van 57), Sipaliwini (36 van 72) en Brokopondo (32 van 62). De VHP was sterk in Wanica (62 van 113) en Nickerie (35 van 65). De ABOP was onaantastbaar in Marowijne: 44 van 60 RR-zetels — bijna driekwart. Dit lokale bestuur is de ruggengraat van de Surinaamse democratie.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIJLAGE 3: PARTIJEN -->
+  <div id="bijlage-partijen" style="margin-top:3rem;">
+    <h3 class="section-title">Bijlage 3 — Deelnemende partijen 2015–2025</h3>
+    <p>In 2015 namen 17 partijen deel. In 2020 ook 17. In 2025 slechts 14. Het politieke landschap consolideert langzaam. KTPI — opgericht in 1948 door Iding Soemita — deed in 2025 mee als onderdeel van de combinatie DNL maar haalde geen zetels.</p>
+    <div style="overflow-x:auto;">
+      <table class="data-table">
+        <thead><tr><th>Partij</th><th>Volledige naam</th><th>2015</th><th>2020</th><th>2025</th><th>Zetels 2025</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:var(--vhp)">VHP</strong></td><td>Vooruitstrevende Hervormingspartij</td><td>54.878</td><td>108.378</td><td>87.032</td><td>17</td></tr>
+          <tr><td><strong style="color:var(--ndp)">NDP</strong></td><td>Nationale Democratische Partij</td><td>117.308</td><td>65.862</td><td>93.545</td><td>18</td></tr>
+          <tr><td><strong style="color:var(--abop)">ABOP</strong></td><td>Algemene Bevrijdings- en Ontwikkelingspartij</td><td>—</td><td>30.710</td><td>31.804</td><td>6</td></tr>
+          <tr><td><strong style="color:var(--nps)">NPS</strong></td><td>Nationale Partij Suriname</td><td>16.063</td><td>32.394</td><td>31.285</td><td>6</td></tr>
+          <tr><td><strong style="color:var(--pl)">PL</strong></td><td>Pertjajah Luhur</td><td>18.853</td><td>10.792</td><td>10.317</td><td>2</td></tr>
+          <tr><td><strong style="color:var(--a20)">A-20</strong></td><td>Alternatief 2020</td><td>—</td><td>4.501</td><td>7.473</td><td>1</td></tr>
+          <tr><td><strong style="color:var(--bep)">BEP</strong></td><td>Broederschap en Eenheid in de Politiek</td><td>3.969</td><td>6.835</td><td>7.128</td><td>1</td></tr>
+          <tr style="color:#aaa;"><td>OPTSU</td><td>Combinatie PALU, Wi Sranan e.a.</td><td>—</td><td>—</td><td>1.636</td><td>0</td></tr>
+          <tr style="color:#aaa;"><td>DA-91</td><td>Democratisch Alternatief '91</td><td>1.020</td><td>659</td><td>1.542</td><td>0</td></tr>
+          <tr style="color:#aaa;"><td>DNL/KTPI</td><td>De Nieuwe Leeuw / KTPI</td><td>—</td><td>—</td><td>650</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--dark);color:rgba(255,255,255,0.4);text-align:center;padding:3rem 2rem;font-family:sans-serif;font-size:12px;margin-top:4rem;">
+  <p style="color:rgba(255,255,255,0.7);font-size:14px;margin-bottom:0.5rem;">Stemmen in Suriname</p>
+  <p>Gebaseerd op Dynamiek in de Politiek deel 6 — Hardeo R. Ramadhin (2026)</p>
+  <p style="margin-top:0.5rem;">De geschiedenis van de Surinaamse verkiezingen 1866–2025</p>
+</footer>
+
+</div><!-- end .main -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════
+const PC = { VHP:'#378ADD', NDP:'#D85A30', ABOP:'#5DCAA5', NPS:'#9FE1CB', PL:'#EF9F27', 'A-20':'#7F77DD', BEP:'#639922', Overig:'#B4B2A9', Front:'#5DCAA5' };
+
+// ── TIJDLIJN ──────────────────────────────────────────────────
+const tlEvents = [
+  { year:1866, era:'koloniaal', color:'#AFA9EC', title:'Koloniale Staten opgericht', desc:'Op 8 mei 1866 werd de Koloniale Staten opgericht: 13 leden, waarvan 9 gekozen en 4 benoemd door de gouverneur. Kiesrecht alleen voor mannen met minimaal 800 gulden belastbaar inkomen.' },
+  { year:1901, era:'koloniaal', color:'#AFA9EC', title:'Eerste hervorming', desc:'Alle 13 leden worden voortaan gekozen via het personenmeerderheidsstelsel. Het kiesrecht blijft beperkt tot een kleine vermogende klasse.' },
+  { year:1937, era:'koloniaal', color:'#AFA9EC', title:'Staten van Suriname', desc:'De Koloniale Staten worden omgedoopt tot de Staten van Suriname. In 1945 zijn er slechts 2.995 kiesgerechtigden in heel Suriname.' },
+  { year:1949, era:'democratie1', color:'#5DCAA5', title:'Algemeen Kiesrecht', desc:'Het Algemeen Kiesrecht wordt ingevoerd. Voor het eerst mogen alle Surinamers stemmen. De NPS wint met 12 van de 21 zetels. Een historisch keerpunt.' },
+  { year:1975, era:'democratie1', color:'#5DCAA5', title:'Onafhankelijkheid', desc:'Suriname wordt onafhankelijk op 25 november 1975. Maar in 1975 alleen al verlaten 38.000 mensen het land richting Nederland. Een massale emigratie begint.' },
+  { year:1980, era:'militair', color:'#D85A30', title:'Militaire coup', desc:'In de nacht van 24 op 25 februari 1980 neemt Desiré Bouterse de macht over. Premier Arron wordt gearresteerd. De grondwet opgeschort. De democratie valt.' },
+  { year:1982, era:'militair', color:'#D85A30', title:'8 decembermoorden', desc:'Vijftien prominente Surinamers worden uit hun bedden gelicht en naar Fort Zeelandia gebracht. De volgende ochtend worden ze doodgeschoten. Een zwarte bladzijde.' },
+  { year:1987, era:'democratie2', color:'#378ADD', title:'Terugkeer democratie', desc:'Na zeven jaar mogen Surinamers opnieuw stemmen. Opkomst: bijna 92%. Het Front wint 40 van de 51 zetels. Suriname ademt op.' },
+  { year:1990, era:'democratie2', color:'#378ADD', title:'Telefooncoup', desc:'Op kerstavond 1990 belt Bouterse de premier op en eist zijn aftreden. Via één telefoongesprek valt de gekozen regering.' },
+  { year:2010, era:'democratie2', color:'#378ADD', title:'Bouterse president', desc:'De NDP wint 23 zetels (40,2%). Bouterse — internationaal gezocht — wordt via democratische weg president. De wereld kijkt verbaasd toe.' },
+  { year:2015, era:'democratie2', color:'#378ADD', title:'NDP-hoogtepunt', desc:'De NDP behaalt 45,5% en 26 zetels — bijna de helft van het parlement. Het absolute hoogtepunt van de NDP.' },
+  { year:2020, era:'democratie2', color:'#378ADD', title:'VHP historisch', desc:'De VHP wint 39,4% en 20 zetels — het beste resultaat ooit. Santokhi wordt president, Brusswijk vicepresident. Twee voormalige vijanden samen aan de macht.' },
+  { year:2025, era:'democratie2', color:'#378ADD', title:'Eerste vrouwelijke president', desc:'De NDP wint met 18 zetels. Jennifer Geerlings-Simons wordt de eerste vrouwelijke president van Suriname. Het nieuwe evenredige kiesstelsel brengt 7 partijen in het parlement.' },
+];
+
+// ── OPKOMST ───────────────────────────────────────────────────
+const opkomstData = [
+  { d:'Paramaribo', k:163000, s:109822, pct:67.4, info:'De hoofdstad. 275 stembureaus. Meer dan 40% van alle nationale stemmen komen uit Paramaribo.' },
+  { d:'Wanica', k:100358, s:71770, pct:71.5, info:'Het snelst groeiende district. Door uitbreiding van Paramaribo wonen hier al 118.000+ mensen.' },
+  { d:'Nickerie', k:23526, s:18109, pct:77.0, info:'Het rijstdistrict. Van oudsher een VHP-bolwerk. Hoge opkomst door betrokken landbouwersgemeenschap.' },
+  { d:'Coronie', k:2075, s:1461, pct:70.4, info:'Het kleinste district: slechts 4 stembureaus en 2.075 kiezers. Kokospalmengebied aan de westkust.' },
+  { d:'Saramacca', k:12981, s:10340, pct:79.6, info:'Agrarisch district langs de Saramaccarivier. Hoge opkomst, sterke VHP-aanhang.' },
+  { d:'Commewijne', k:24852, s:18363, pct:73.9, info:'District van de oude plantages. 78% opkomst — de hoogste na Saramacca.' },
+  { d:'Marowijne', k:16959, s:11361, pct:67.0, info:'Grensdistrict met Frans Guyana. ABOP-bastion van Ronnie Brusswijk. Albina is de grensstad.' },
+  { d:'Para', k:21290, s:14911, pct:70.0, info:'Groot dunbevolkt district ten zuiden van Paramaribo. Groeit door expansie van de hoofdstad.' },
+  { d:'Brokopondo', k:9072, s:6018, pct:66.4, info:'District van het Brokopondostuwmeer. Veel Saramakaanse Marrons. ABOP en BEP sterk.' },
+  { d:'Sipaliwini', k:26067, s:11582, pct:44.4, info:'Laagste opkomst: 44,4%. Niet door onverschilligheid maar logistiek — stembureaus zijn uren varen ver.' },
+];
+
+// ── ZETELVERLOOP ──────────────────────────────────────────────
+const zetelData = {
+  labels: [1987, 1991, 1996, 2000, 2005, 2010, 2015, 2020, 2025],
+  parties: [
+    { label:'VHP',  data:[15,9,9,10,8,8,9,20,17],  color:PC.VHP },
+    { label:'NDP',  data:[3,12,16,10,15,23,26,16,18], color:PC.NDP },
+    { label:'NPS',  data:[14,12,9,13,8,4,2,3,6],   color:PC.NPS },
+    { label:'ABOP', data:[0,0,0,0,0,7,4,9,6],      color:PC.ABOP },
+    { label:'PL',   data:[0,2,4,5,6,6,5,1,2],      color:PC.PL },
+  ]
+};
+
+// ── VERKIEZINGEN GESTAPELD ────────────────────────────────────
+const vkGestapeld = {
+  labels: ['1987','1991','1996','2000','2005','2010','2015','2020','2025'],
+  datasets: [
+    { label:'VHP',   data:[15,9,9,10,8,8,9,20,17], backgroundColor:PC.VHP },
+    { label:'NDP',   data:[3,12,16,10,15,23,26,16,18], backgroundColor:PC.NDP },
+    { label:'NPS',   data:[14,12,9,13,8,4,2,3,6],  backgroundColor:PC.NPS },
+    { label:'ABOP',  data:[0,0,0,0,0,7,4,9,6],     backgroundColor:PC.ABOP },
+    { label:'PL',    data:[0,2,4,5,6,6,5,1,2],     backgroundColor:PC.PL },
+    { label:'Overig',data:[19,16,13,13,14,3,5,2,2], backgroundColor:PC.Overig },
+  ]
+};
+
+// ── VERKIEZINGSGESCHIEDENNIS ──────────────────────────────────
+const vkGeschiedenis = [
+  { jaar:1987, datum:'25 november 1987', winner:'Front (NPS+VHP+KTPI)', wColor:'#5DCAA5', zetels:'40/51', pct:'—', president:'Ramsewak Shankar (VHP)', opkomst:'~92%', verhaal:'Na zeven jaar militaire dictatuur keert de democratie terug. De opkomst is bijna 92 procent — mensen staan in lange rijen. Het Front wint 40 van de 51 zetels. De NDP van Bouterse behaalt slechts 3. Suriname ademt op. Ramsewak Shankar van de VHP wordt de eerste Hindostaanse president van Suriname.' },
+  { jaar:1991, datum:'25 mei 1991', winner:'Nieuw Front', wColor:'#5DCAA5', zetels:'30/51', pct:'—', president:'Ronald Venetiaan (NPS)', opkomst:'~83%', verhaal:'Na de telefooncoup van kerstavond 1990 worden nieuwe verkiezingen uitgeschreven. Het Nieuw Front wint 30 zetels. Ronald Venetiaan wordt president. Bijzonder: de NDP haalt al 12 zetels — evenveel als de NPS. Het politieke landschap wordt meteen diverser.' },
+  { jaar:1996, datum:'23 mei 1996', winner:'NDP', wColor:'#D85A30', zetels:'16/51', pct:'26,2%', president:'Jules Wijdenbosch (NDP)', opkomst:'—', verhaal:'De eerste grote verrassing: de NDP wordt de grootste partij met 16 zetels. Jules Wijdenbosch wordt president — de eerste NDP-president. De kiezers zijn de economische malaise zat. De NDP biedt verandering aan. De Wijdenbosch-periode wordt echter desastreus: de economie stort in, de dollar verliest zijn waarde, er komen massaprotesten.' },
+  { jaar:2000, datum:'25 mei 2000', winner:'Nieuw Front', wColor:'#5DCAA5', zetels:'33/51', pct:'—', president:'Ronald Venetiaan (NPS)', opkomst:'—', verhaal:'Na de roerige Wijdenbosch-jaren wint het Nieuw Front terug. Venetiaan keert terug als president. De NDP valt terug van 16 naar 10 zetels. Suriname kiest voor stabiliteit en bestuurlijke ervaring.' },
+  { jaar:2005, datum:'25 mei 2005', winner:'Nieuw Front', wColor:'#5DCAA5', zetels:'23/51', pct:'—', president:'Ronald Venetiaan (NPS)', opkomst:'—', verhaal:'Venetiaan wint voor de derde keer, maar zijn meerderheid slinkt. De NDP groeit fors naar 15 zetels en 23,2 procent. Bouterse bereidt zijn comeback voor. De formatie is moeizaam maar Venetiaan blijft.' },
+  { jaar:2010, datum:'25 mei 2010', winner:'NDP-plus', wColor:'#D85A30', zetels:'23/51', pct:'40,2%', president:'Desiré Bouterse (NDP)', opkomst:'73,2%', verhaal:'De grote aardverschuiving. De NDP wint 23 zetels en 40,2 procent. Bouterse — veroordeeld voor drugshandel, internationaal gezocht — wordt via democratische weg president. De ABOP verschijnt voor het eerst als serieuze kracht met 7 zetels.' },
+  { jaar:2015, datum:'25 mei 2015', winner:'NDP', wColor:'#D85A30', zetels:'26/51', pct:'45,5%', president:'Desiré Bouterse (NDP)', opkomst:'73,0%', verhaal:'Het absolute hoogtepunt van de NDP: 45,5% en 26 zetels — bijna de helft van het parlement. Bouterse wordt herkozen. De NPS lijdt een historisch dieptepunt: slechts 2 zetels. Maar de klok begint te tikken: de goudprijs daalt, de economie kwakkelt.' },
+  { jaar:2020, datum:'25 mei 2020', winner:'VHP', wColor:'#378ADD', zetels:'20/51', pct:'39,4%', president:'Chandrikapersad Santokhi (VHP)', opkomst:'71,6%', verhaal:'De tweede grote aardverschuiving. De VHP wint 39,4% en 20 zetels — het beste resultaat ooit. De NDP valt van 26 naar 16. Santokhi wordt president, Brusswijk — vroegere vijand — vicepresident. Twee mannen die elkaar in de jaren tachtig als vijanden kenden, regeren samen. Suriname toont zijn vermogen tot verzoening.' },
+  { jaar:2025, datum:'25 mei 2025', winner:'NDP-coalitie', wColor:'#D85A30', zetels:'18/51', pct:'34,2%', president:'Jennifer Geerlings-Simons (NDP)', opkomst:'69,4%', verhaal:'Na vijf jaar pijnlijke bezuinigingen verloor de VHP terrein. De NDP onder Jennifer Geerlings-Simons maakte haar comeback: 18 zetels en 34,2%. Een verschil van slechts 6.513 stemmen op 273.776 uitgebrachte stemmen. Geerlings-Simons wordt de eerste vrouwelijke president van Suriname. Het nieuwe evenredige stelsel brengt zeven partijen in het parlement.' },
+];
+
+// ── ETNICITEIT ────────────────────────────────────────────────
+const etnicData = [
+  { g:'Hindostaans', n:148443, pct:27.4, c:'#378ADD', info:'De grootste groep (27,4%). Overwegend VHP-stemmers, maar ook significant aanwezig bij NDP (25,5% van NDP-stemmen). Veel in Paramaribo, Wanica, Nickerie en Saramacca.' },
+  { g:'Marron', n:117567, pct:21.7, c:'#5DCAA5', info:'De snelst groeiende groep (21,7%). Overwegend ABOP-stemmers. Sterk geconcentreerd in Marowijne (68% ABOP), Brokopondo en Sipaliwini.' },
+  { g:'Creools', n:84993, pct:15.7, c:'#5F5E5A', info:'De traditionele NPS-achterban (15,7%). Nu verdeeld over NPS, NDP en andere partijen. Sterk in Paramaribo en Coronie.' },
+  { g:'Javaans', n:73975, pct:13.7, c:'#EF9F27', info:'De achterban van de PL (13,7%). Maar veel Javanen stemden in 2025 ook VHP (11.236 stemmen) en NDP (5.038). Geconcentreerd in Commewijne en Wanica.' },
+  { g:'Gemengd', n:72340, pct:13.4, c:'#AFA9EC', info:'De meest volatiele kiezersgroep (13,4%). Verdeeld over meerdere partijen. Groeiende groep die de traditionele etnische grenzen overschrijdt.' },
+  { g:'Inheems', n:20345, pct:3.8, c:'#9FE1CB', info:'Inheemse volken (3,8%). Voornamelijk in Para, Sipaliwini en Marowijne. Stemmen op ABOP, BEP en lokale partijen. Politiek nog onvoldoende vertegenwoordigd.' },
+  { g:'Chinees', n:7885, pct:1.5, c:'#D85A30', info:'Chinese gemeenschap (1,5%). Voornamelijk in Paramaribo. Verdeeld over meerdere partijen.' },
+  { g:'Overig', n:16090, pct:2.8, c:'#B4B2A9', info:'Overige groepen inclusief Europeanen, anderen en gemengd. (2,8%)' },
+];
+
+// ── PICOLET ───────────────────────────────────────────────────
+const picoletData = {
+  VHP: { kleur:PC.VHP, data:[{g:'Hindostaans',n:26,pct:51,c:'#378ADD'},{g:'Javaans',n:7,pct:14,c:'#EF9F27'},{g:'Creools/mix',n:18,pct:35,c:'#B4B2A9'}], uitleg:'De VHP had 51% Hindostaanse kandidaten — logisch, dat is haar kern. Maar ook 7 Javanen (14%) en 18 anderen (35%). Van haar 87.032 stemmen came 84% van Hindostaanse kiezers, 13% van Javanen.' },
+  NDP: { kleur:PC.NDP, data:[{g:'Creools/mix',n:19,pct:37,c:'#5F5E5A'},{g:'Hindostaans',n:14,pct:27,c:'#378ADD'},{g:'Marron',n:10,pct:20,c:'#5DCAA5'},{g:'Javaans',n:8,pct:16,c:'#EF9F27'}], uitleg:'De NDP is de meest etnisch diverse partij. 37% Creools/gemengd, maar 27% Hindostaans, 20% Marron en 16% Javaans. Zonder de 14 Hindostaanse NDP-kandidaten (23.830 stemmen) zou de NDP niet de grootste partij zijn geworden.' },
+  ABOP: { kleur:PC.ABOP, data:[{g:'Marron',n:27,pct:53,c:'#5DCAA5'},{g:'Hindostaans',n:11,pct:22,c:'#378ADD'},{g:'Javaans',n:6,pct:12,c:'#EF9F27'},{g:'Inheems',n:3,pct:6,c:'#9FE1CB'},{g:'Overig',n:4,pct:8,c:'#B4B2A9'}], uitleg:'De ABOP heeft haar Marron-identiteit (53%) stevig verankerd maar voegt er ook Hindostanen, Javanen en Inheemsen aan toe. Van haar 31.804 stemmen came 92,8% van Marron-kiezers.' },
+  NPS: { kleur:PC.NPS, data:[{g:'Creools/mix',n:34,pct:67,c:'#5F5E5A'},{g:'Marron',n:9,pct:18,c:'#5DCAA5'},{g:'Javaans',n:3,pct:6,c:'#EF9F27'},{g:'Hindostaans',n:4,pct:8,c:'#378ADD'},{g:'Chinees',n:2,pct:4,c:'#D85A30'}], uitleg:'De NPS is overwegend Creools (67%) maar heeft 9 Marron-kandidaten en zelfs 4 Hindostanen op de lijst. Van haar stemmen: 57% Creools, 30% Marron, 10% Javaans.' },
+};
+
+// ── STEMGEDRAG ────────────────────────────────────────────────
+const stemgedragData = {
+  VHP: { kleur:PC.VHP, data:[{g:'Hindostaans',pct:84.2,c:'#378ADD'},{g:'Javaans',pct:12.9,c:'#EF9F27'},{g:'Overig',pct:2.9,c:'#B4B2A9'}], uitleg:'84,2% van de VHP-stemmen kwamen van Hindostaanse kiezers. Maar 12,9% van Javanen — een significante minderheid. Santokhi behaalde 45.894 stemmen — bijna negen keer de kiesdeler.' },
+  NDP: { kleur:PC.NDP, data:[{g:'Creools/Afro',pct:57.6,c:'#5F5E5A'},{g:'Hindostaans',pct:25.5,c:'#378ADD'},{g:'Marron',pct:11.5,c:'#5DCAA5'},{g:'Javaans',pct:5.4,c:'#EF9F27'}], uitleg:'De NDP is verrassend: 25,5% van haar stemmen komt van Hindostaanse kiezers. Ashwin Adhin alleen haalde 19.228 stemmen. Zonder die Hindostaanse stemmen zou de NDP op slechts 10 zetels zijn geëindigd.' },
+  ABOP: { kleur:PC.ABOP, data:[{g:'Marron',pct:92.8,c:'#5DCAA5'},{g:'Hindostaans',pct:3.4,c:'#378ADD'},{g:'Javaans',pct:2.4,c:'#EF9F27'},{g:'Inheems',pct:1.4,c:'#9FE1CB'}], uitleg:'De ABOP is het meest homogeen: 92,8% Marron. Brusswijk behaalde 19.178 stemmen — meer dan 60% van alle ABOP-stemmen. In Marowijne haalde de ABOP 68% van alle stemmen.' },
+  NPS: { kleur:PC.NPS, data:[{g:'Creools/Afro',pct:56.5,c:'#5F5E5A'},{g:'Marron',pct:30.1,c:'#5DCAA5'},{g:'Javaans',pct:9.7,c:'#EF9F27'},{g:'Hindostaans',pct:1.6,c:'#378ADD'},{g:'Chinees',pct:2.2,c:'#D85A30'}], uitleg:'De NPS haalt bijna een derde van haar stemmen uit de Marron-gemeenschap. Gregory Rusland (8.533 stemmen) en Poetini Atompai (6.481 stemmen) zijn de grote trekkers.' },
+};
+
+// ── DNA-LEDEN ─────────────────────────────────────────────────
+const dnaLeden = [
+  [1,'Santokhi, Chandrikapersad','VHP',45894,1959],[2,'Dasai, Marciano','VHP',9217,1978],
+  [3,'Mathoera, Krishna','VHP',10535,1963],[4,'Gajadien, Asiskumar','VHP',1316,1967],
+  [5,'Dijksteel, Cheryl','VHP',246,1975],[6,'Sharman, Dew','VHP',2076,1965],
+  [7,'Wang, Chuanrui','VHP',395,1991],[8,'Van Samson, Cedric','VHP',467,1980],
+  [9,'Jogi, Mahinderkoemar','VHP',3081,1961],[10,'Ramdien, Harriëtte','VHP',143,1965],
+  [11,'Amatmohamed, Natalie','VHP',574,1981],[12,'Raghoenandan, Rawien','VHP',561,1981],
+  [13,'Mohan, Roy Ramdath','VHP',466,1966],[14,'Lalmahomed, Hakiem','VHP',605,1997],
+  [15,'Thakoer, Vidjaiprekash','VHP',734,1967],[16,'Jarbandhan, Ameerani','VHP',141,1986],
+  [17,'Ramsukul, Kishan','VHP',865,1985],[18,'Simons, Jennifer','NDP',41729,1953],
+  [19,'Adhin, Ashwin','NDP',19228,1980],[20,'Waldring, Ingrid','NDP',6915,1961],
+  [21,'Misiekaba, André','NDP',4182,1976],[22,'Cotino, Rossellie','NDP',501,1976],
+  [23,'Sadi, Ann','NDP',1296,1959],[24,'Parmessar, Rabindre','NDP',277,1952],
+  [25,'Sapoen, Raymond','NDP',565,1967],[26,'Tsang, Stephen','NDP',514,1973],
+  [27,'Edwards, Iona','NDP',916,1991],[28,'Akiemboto, Sergio','NDP',2132,1979],
+  [29,'Bouva, Melvin','NDP',328,1982],[30,'Lalbiharie, Jayant','NDP',2802,1990],
+  [31,'Jones, Ebu','NDP',703,1979],[32,'Vreedzaam, Jennifer','NDP',194,1970],
+  [33,'Afoensoewa, Silvana','NDP',900,1989],[34,'Joeloemsingh, Wedprekash','NDP',153,1972],
+  [35,'Löche, Tashana','NDP',326,1989],[36,'Brusswijk, Ronnie','ABOP',19178,1961],
+  [37,'Bee, Marinus','ABOP',2249,1971],[38,'Pané, Ines','ABOP',292,1980],
+  [39,'Vorswijk, Dinotha','ABOP',1659,1989],[40,'Sampie, Edgar','ABOP',407,1992],
+  [41,'Goerdat, Keshawpersad','ABOP',321,1979],[42,'Rusland, Gregory','NPS',8533,1959],
+  [43,'Atompai, Poetini','NPS',6481,1991],[44,'Etnel, Patricia','NPS',3579,1976],
+  [45,'Pokie, Diana','NPS',2531,1979],[46,'Pawiroredjo, Jerrel','NPS',2785,1967],
+  [47,'Fatehmahomed, Mohamed','NPS',179,1981],[48,'Somohardjo, Bronto','PL',4099,1980],
+  [49,'Ramsaran, Uraiqoit','PL',2213,1988],[50,'Reyme, Steven','A-20',2457,1967],
+  [51,'Asabina, Ronny','BEP',2470,1968],
+];
+
+// ── KABINETTEN ────────────────────────────────────────────────
+const kabinetten = {
+  simons: { titel:'Kabinet Simons/Rusland — 2025–2030', president:'Jennifer Geerlings-Simons (NDP)', vp:'Gregory Rusland (NPS)', ministers:[
+    ['Noersalim, Mike','Landbouw, Veeteelt en Visserij','NDP'],['Bouva, Melvin','Buitenlandse Zaken','NDP'],
+    ['Wijnerman, Adelien','Financiën en Planning','NDP'],['Tsang, Stephen','Openbare Werken','NDP'],
+    ['Misiekaba, André','Volksgezondheid, Welzijn en Arbeid','NDP'],['Gopal, Lalini','Jeugd- en Sportzaken','NDP'],
+    ['Currie, Dirck','Onderwijs, Wetenschap en Cultuur','NPS'],['Pokie, Diana','Sociale Zaken en Volkshuisvesting','NPS'],
+    ['Brunings, Patrick','Olie, Gas en Milieu','NPS'],['Abiamofo, David','Natuurlijke Hulpbronnen','ABOP'],
+    ['Manorath, Harisch','Justitie en Politie','ABOP'],['Bee, Marinus','Binnenlandse Zaken','ABOP'],
+    ['Huur-Soemar, Miguelle','Regionale Ontwikkeling','ABOP'],['Ramsaran, Uraiqoit','Defensie','PL'],
+    ['Soeropawiro, Stanley','Grond- en Bosbeleid','PL'],['Baasaron, Andrew','Economische Zaken','A-20'],
+    ['Landveld, Raymond','Toerisme, Communicatie en Transport','BEP'],
+  ]},
+  santokhi: { titel:'Kabinet Santokhi/Brusswijk — 2020–2025', president:'Chandrikapersad Santokhi (VHP)', vp:'Ronnie Brusswijk (ABOP)', ministers:[
+    ['Ramdin, Albert','Buitenlandse Zaken','VHP'],['Achaibersing, Armand','Financiën en Planning','VHP'],
+    ['Ramadhin, Amar','Volksgezondheid','VHP'],['Kuldipsingh, Rishma','Arbeid en Werkgelegenheid','VHP'],
+    ['Mathoera, Krishna','Defensie','VHP'],['Nurmohamed, Riad','Openbare Werken','VHP'],
+    ['Sewdien, Pahlad','Landbouw, Veeteelt en Visserij','VHP'],['Walden, Saskia','Economische Zaken','VHP'],
+    ['Abiamofo, David','Natuurlijke Hulpbronnen','ABOP'],['Amoksi, Kenneth','Justitie en Politie','ABOP'],
+    ['Emanuel, Gracia','Regionale Ontwikkeling','ABOP'],['Pokie, Diana','Grond en Bosbeheer','ABOP'],
+    ['Jubitana, Albert','TCT','ABOP'],['Levens, Marie','Onderwijs en Wetenschappen','NPS'],
+    ['Tjon-A-Hin, Silvano','Ruimtelijke Ordening en Milieu','NPS'],
+    ['Somohardjo, Bronto','Binnenlandse Zaken','PL'],['Ramsaran, Uraiqoit','Sociale Zaken','PL'],
+  ]},
+  bouterse: { titel:'Kabinet Bouterse/Adhin — 2015–2020', president:'Desiré Bouterse (NDP)', vp:'Ashwin Adhin (NDP)', ministers:[
+    ['Hoefdraad, Gillmore','Financiën','NDP'],['Badrising, Niermala','Buitenlandse Zaken','NDP'],
+    ['Benschop, Ronni','Defensie','NDP'],['Van Dijk-Silos, Jennifer','Justitie en Politie','NDP'],
+    ['Relyveld, Steven','Ruimtelijke Ordening, Grond en Bosbeheer','NDP'],['Algoe, Soeresh','Landbouw, Veeteelt en Visserij','NDP'],
+    ['Wolff, Siegfried','Openbare Werken','NDP'],['Abdoelgafoer, Faizal','Sport- en Jeugdzaken','NDP'],
+    ['Noersalim, Mohamed','Binnenlandse Zaken','NDP'],['Rusland, Andy','TCT','NDP'],
+    ['Burleson, Sieglien','Handel en Industrie','NDP'],['Dodson, Regillio','Natuurlijke Hulpbronnen','NDP'],
+    ['Peneux, Robert','Onderwijs, Wetenschappen en Cultuur','NDP'],['Dikan, André','Regionale Ontwikkeling','NDP'],
+    ['Pengel, Patrick','Volksgezondheid','NDP'],['Dogojo, Joan','Welzijn','NDP'],['Moestadja, Soewarto','Arbeid','NDP'],
+  ]},
+};
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ═══════════════════════════════════════════════════════════════
+
+// ── TIJDLIJN ──────────────────────────────────────────────────
+function renderTijdlijn() {
+  const c = document.getElementById('tl-events');
+  c.innerHTML = tlEvents.map((e,i) =>
+    `<div class="tl-event" onclick="showTlDetail(${i})" style="border-color:${e.color}20;">
+      <div class="tl-year" style="color:${e.color}">${e.year}</div>
+      <div class="tl-label">${e.title}</div>
+    </div>`
+  ).join('');
+}
+
+function showTlDetail(i) {
+  const e = tlEvents[i];
+  document.getElementById('tl-detail').innerHTML = `
+    <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:8px;">
+      <span class="tl-detail-year" style="color:${e.color}">${e.year}</span>
+      <span class="tl-detail-title">${e.title}</span>
+    </div>
+    <p class="tl-detail-desc">${e.desc}</p>`;
+}
+
+// ── CHART: OPKOMST ────────────────────────────────────────────
+function renderOpkomst() {
+  const labels = opkomstData.map(d => d.d);
+  const pcts = opkomstData.map(d => d.pct);
+  const colors = pcts.map(p => p < 60 ? '#D85A30' : p < 70 ? '#EF9F27' : '#1B6CA8');
+
+  const ctx = document.getElementById('chartOpkomst').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Opkomst %',
+        data: pcts,
+        backgroundColor: colors,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: ctx => `${ctx.parsed.x.toFixed(1)}% opkomst` }
+      }},
+      scales: {
+        x: { min: 0, max: 100, ticks: { callback: v => v+'%' } },
+        y: { ticks: { font: { size: 11 } } }
+      },
+      onClick: (e, els) => {
+        if (!els.length) return;
+        const d = opkomstData[els[0].index];
+        document.getElementById('opkomst-detail').innerHTML = `
+          <div style="font-weight:700;font-size:14px;margin-bottom:8px;">${d.d}</div>
+          <div style="font-size:22px;font-weight:700;color:${d.pct<60?'#D85A30':'#1B6CA8'};margin-bottom:8px;">${d.pct.toFixed(1)}%</div>
+          <div style="font-size:12px;color:#555;margin-bottom:8px;">${d.s.toLocaleString()} van ${d.k.toLocaleString()} kiezers</div>
+          <div style="font-size:12px;color:#777;line-height:1.6;">${d.info}</div>`;
+      }
+    }
+  });
+}
+
+// ── CHART: ZETELVERLOOP ───────────────────────────────────────
+function renderZetelverloop() {
+  const ctx = document.getElementById('chartZetelverloop').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: zetelData.labels,
+      datasets: zetelData.parties.map(p => ({
+        label: p.label,
+        data: p.data,
+        borderColor: p.color,
+        backgroundColor: p.color + '20',
+        pointBackgroundColor: p.color,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        tension: 0.3,
+        fill: false,
+        borderWidth: 2.5,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 15 } },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        y: { min: 0, max: 30, ticks: { stepSize: 5 }, title: { display: true, text: 'Zetels' } },
+        x: { title: { display: true, text: 'Verkiezingsjaar' } }
+      },
+    }
+  });
+}
+
+// ── CHART: VERKIEZINGEN GESTAPELD ─────────────────────────────
+function renderVerkiezingen() {
+  const ctx = document.getElementById('chartVerkiezingen').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: vkGestapeld,
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 12 } },
+        tooltip: { mode: 'index', callbacks: { footer: items => 'Totaal: '+items.reduce((s,i)=>s+i.parsed.y,0)+' zetels' } },
+        annotation: {
+          annotations: {
+            lijn34: { type:'line', yMin:34, yMax:34, borderColor:'rgba(216,90,48,0.85)', borderWidth:2.5, borderDash:[8,4],
+              label:{ content:'Tweederde meerderheid (34)', display:true, position:'center', font:{size:10,weight:'bold'}, color:'#D85A30', backgroundColor:'rgba(255,255,255,0.85)', padding:{x:6,y:3} } }
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true }, y: { stacked: true, max: 55, title: { display: true, text: 'Zetels' } }
+      }
+    }
+  });
+}
+
+// ── VERKIEZINGSGESCHIEDENIS ───────────────────────────────────
+function renderVkGeschiedenis() {
+  const c = document.getElementById('vk-years');
+  c.innerHTML = vkGeschiedenis.map((v,i) =>
+    `<button class="ctrl-btn" onclick="showVk(${i})" style="border-color:${v.wColor}40;" id="vkbtn-${i}">${v.jaar}</button>`
+  ).join('');
+}
+
+function showVk(i) {
+  document.querySelectorAll('[id^=vkbtn-]').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('vkbtn-'+i);
+  if (btn) { btn.classList.add('active'); btn.style.background = vkGeschiedenis[i].wColor; btn.style.color = 'white'; }
+  const v = vkGeschiedenis[i];
+  document.getElementById('vk-detail').innerHTML = `
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;">
+      <span style="font-size:2rem;font-weight:700;color:${v.wColor};font-family:sans-serif;">${v.jaar}</span>
+      <span style="font-family:sans-serif;font-size:13px;color:#aaa;">${v.datum}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:1rem;">
+      <div style="background:#f8f9fb;border-radius:6px;padding:8px 10px;"><div style="font-size:10px;font-family:sans-serif;color:#aaa;margin-bottom:2px;">Winnaar</div><div style="font-size:13px;font-weight:700;color:${v.wColor};">${v.winner}</div></div>
+      <div style="background:#f8f9fb;border-radius:6px;padding:8px 10px;"><div style="font-size:10px;font-family:sans-serif;color:#aaa;margin-bottom:2px;">Zetels winnaar</div><div style="font-size:13px;font-weight:700;">${v.zetels}</div></div>
+      <div style="background:#f8f9fb;border-radius:6px;padding:8px 10px;"><div style="font-size:10px;font-family:sans-serif;color:#aaa;margin-bottom:2px;">Opkomst</div><div style="font-size:13px;font-weight:700;">${v.opkomst}</div></div>
+      <div style="background:#f8f9fb;border-radius:6px;padding:8px 10px;"><div style="font-size:10px;font-family:sans-serif;color:#aaa;margin-bottom:2px;">President</div><div style="font-size:12px;font-weight:700;">${v.president}</div></div>
+    </div>
+    <p style="line-height:1.8;color:#444;font-size:0.95rem;">${v.verhaal}</p>`;
+}
+
+// ── CHART: ETNICITEIT ─────────────────────────────────────────
+function renderEtniciteit() {
+  const ctx = document.getElementById('chartEtniciteit').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: etnicData.map(d => d.g),
+      datasets: [{ data: etnicData.map(d => d.pct), backgroundColor: etnicData.map(d => d.c), borderWidth: 2, borderColor: 'white', hoverOffset: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '55%',
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10 } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed.toFixed(1)}%` } }
+      },
+      onClick: (e, els) => {
+        if (!els.length) return;
+        const d = etnicData[els[0].index];
+        document.getElementById('etniciteit-detail').innerHTML = `
+          <div style="font-weight:700;font-size:15px;margin-bottom:6px;color:${d.c}">${d.g}</div>
+          <div style="font-size:24px;font-weight:700;margin-bottom:6px;">${d.pct}%</div>
+          <div style="font-size:12px;color:#777;margin-bottom:8px;">${d.n.toLocaleString()} personen</div>
+          <div style="font-size:12px;color:#555;line-height:1.6;">${d.info}</div>`;
+      }
+    }
+  });
+}
+
+// ── CHART: PICOLET ────────────────────────────────────────────
+let picoletChart = null;
+function renderPicoletCtrl() {
+  const c = document.getElementById('picolet-ctrl');
+  ['VHP','NDP','ABOP','NPS'].forEach((p,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ctrl-btn' + (i===0?' active':'');
+    btn.textContent = p;
+    btn.style.borderColor = PC[p];
+    if (i===0) { btn.style.background = PC[p]; btn.style.color = 'white'; }
+    btn.onclick = () => {
+      document.querySelectorAll('#picolet-ctrl .ctrl-btn').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.color=''; });
+      btn.classList.add('active'); btn.style.background = PC[p]; btn.style.color = 'white';
+      showPicolet(p);
+    };
+    c.appendChild(btn);
+  });
+  showPicolet('VHP');
+}
+
+function showPicolet(party) {
+  const d = picoletData[party];
+  if (picoletChart) picoletChart.destroy();
+  const ctx = document.getElementById('chartPicolet').getContext('2d');
+  picoletChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels: d.data.map(x=>x.g), datasets: [{ data: d.data.map(x=>x.n), backgroundColor: d.data.map(x=>x.c), borderWidth:2, borderColor:'white', hoverOffset:6 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout:'55%',
+      plugins: { legend: { position:'bottom', labels:{font:{size:11},padding:8} },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed} kandidaten (${Math.round(ctx.parsed/51*100)}%)` } } }
+    }
+  });
+  document.getElementById('picolet-detail').innerHTML = `
+    <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:${d.kleur}">${party} — 51 kandidaten</div>
+    <div style="font-size:12px;color:#555;line-height:1.7;">${d.uitleg}</div>
+    <div style="margin-top:10px;">${d.data.map(x=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px;"><span style="color:${x.c};font-weight:600;">${x.g}</span><span>${x.n} kandidaten (${x.pct}%)</span></div>`).join('')}</div>`;
+}
+
+// ── CHART: STEMGEDRAG ─────────────────────────────────────────
+let stemChart = null;
+function renderStemgedragCtrl() {
+  const c = document.getElementById('stemgedrag-ctrl');
+  ['VHP','NDP','ABOP','NPS'].forEach((p,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ctrl-btn' + (i===0?' active':'');
+    btn.textContent = p;
+    btn.style.borderColor = PC[p];
+    if (i===0) { btn.style.background = PC[p]; btn.style.color = 'white'; }
+    btn.onclick = () => {
+      document.querySelectorAll('#stemgedrag-ctrl .ctrl-btn').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.color=''; });
+      btn.classList.add('active'); btn.style.background = PC[p]; btn.style.color = 'white';
+      showStemgedrag(p);
+    };
+    c.appendChild(btn);
+  });
+  showStemgedrag('VHP');
+}
+
+function showStemgedrag(party) {
+  const d = stemgedragData[party];
+  if (stemChart) stemChart.destroy();
+  const ctx = document.getElementById('chartStemgedrag').getContext('2d');
+  stemChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels: d.data.map(x=>x.g), datasets: [{ data: d.data.map(x=>x.pct), backgroundColor: d.data.map(x=>x.c), borderWidth:2, borderColor:'white', hoverOffset:6 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout:'55%',
+      plugins: { legend: { position:'bottom', labels:{font:{size:11},padding:8} },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed.toFixed(1)}%` } } }
+    }
+  });
+  document.getElementById('stemgedrag-detail').innerHTML = `
+    <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:${d.kleur}">${party}</div>
+    <div style="font-size:12px;color:#555;line-height:1.7;">${d.uitleg}</div>
+    <div style="margin-top:10px;">${d.data.map(x=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px;"><span style="color:${x.c};font-weight:600;">${x.g}</span><span>${x.pct.toFixed(1)}%</span></div>`).join('')}</div>`;
+}
+
+// ── CHARTS: UITSLAG 2025 ──────────────────────────────────────
+function renderUitslag() {
+  const parties = ['NDP','VHP','ABOP','NPS','PL','A-20','BEP'];
+  const stemmen = [93545,87032,31804,31285,10317,7473,7128];
+  const zetels  = [18,17,6,6,2,1,1];
+  const colors  = parties.map(p => PC[p]||'#888');
+
+  new Chart(document.getElementById('chartUitslag').getContext('2d'), {
+    type: 'bar',
+    data: { labels: parties, datasets: [{ data: stemmen, backgroundColor: colors, borderRadius: 4 }] },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: {
+        label: ctx => ` ${ctx.parsed.x.toLocaleString()} stemmen (${(ctx.parsed.x/273776*100).toFixed(1)}%)`
+      }}},
+      scales: { x: { ticks: { callback: v => (v/1000)+'k' } } }
+    }
+  });
+
+  new Chart(document.getElementById('chartZetels').getContext('2d'), {
+    type: 'doughnut',
+    data: { labels: parties.map((p,i) => `${p} (${zetels[i]})`), datasets: [{ data: zetels, backgroundColor: colors, borderWidth:2, borderColor:'white', hoverOffset:5 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout:'60%',
+      plugins: {
+        legend: { position:'bottom', labels:{font:{size:11},padding:8} },
+        tooltip: { callbacks: { label: ctx => ` ${parties[ctx.dataIndex]}: ${ctx.parsed} zetels` } }
+      }
+    }
+  });
+}
+
+// ── CHART: DISTRICT ───────────────────────────────────────────
+function renderDistrict() {
+  const districts = ['Paramaribo','Wanica','Nickerie','Coronie','Saramacca','Commewijne','Marowijne','Para','Brokopondo','Sipaliwini'];
+  const distData = [
+    { ndp:36.4, vhp:27.3, abop:9.1, nps:16.5, overig:10.7, total:109822, info:'NDP dominant met 36,4%. VHP tweede met 27,3%. NPS sterk aanwezig: 16,5%. ABOP 9,1% door Latour en Pontbuiten-ressorten.' },
+    { ndp:26.0, vhp:46.3, abop:8.1, nps:8.4, overig:11.2, total:71770, info:'VHP-bolwerk: 46,3%. In elk van de 7 ressorten winnaar. NDP tweede met 26%. PL sterk: 5%.' },
+    { ndp:30.3, vhp:53.7, abop:2.7, nps:4.8, overig:8.5, total:18109, info:'Het rijstdistrict: VHP 53,7%. Trouwe VHP-kiezer generatie na generatie. NDP 30,3%.' },
+    { ndp:55.7, vhp:7.0, abop:3.6, nps:27.6, overig:6.1, total:1461, info:'Historisch NPS-district kantelt naar NDP: 55,7%. NPS nog 27,6%. Slechts 1.461 stemmen totaal.' },
+    { ndp:37.1, vhp:49.3, abop:3.3, nps:3.5, overig:6.8, total:10340, info:'VHP 49,3%. Lalbiharie (NDP) veroorzaakte een aardbeving met 2.569 stemmen.' },
+    { ndp:31.7, vhp:37.2, abop:7.4, nps:6.5, overig:17.2, total:18363, info:'VHP 37,2%. PL sterk in Commewijne: 12% (Javaanse gemeenschap).' },
+    { ndp:20.2, vhp:3.7, abop:68.0, nps:3.3, overig:4.8, total:11361, info:'ABOP-domein: 68%. Brusswijk is hier geen politicus maar een volksheld. NDP 20,2%.' },
+    { ndp:56.1, vhp:9.4, abop:11.3, nps:13.7, overig:9.5, total:14911, info:'NDP-bolwerk: 56,1%. NPS tweede met 13,7%. ABOP 11,3%.' },
+    { ndp:45.9, vhp:0.7, abop:19.9, nps:13.4, overig:20.1, total:6018, info:'NDP 45,9%. BEP sterk: 18,1%. ABOP 19,9%. VHP bijna afwezig: 0,7%.' },
+    { ndp:42.7, vhp:2.0, abop:27.6, nps:9.7, overig:18.0, total:11582, info:'NDP 42,7%. ABOP 27,6%. BEP 15,7%. Laagste opkomst: 44,4%. Logistiek, niet onverschilligheid.' },
+  ];
+
+  const ctx = document.getElementById('chartDistrict').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: districts,
+      datasets: [
+        { label:'NDP', data:distData.map(d=>d.ndp), backgroundColor:PC.NDP },
+        { label:'VHP', data:distData.map(d=>d.vhp), backgroundColor:PC.VHP },
+        { label:'ABOP', data:distData.map(d=>d.abop), backgroundColor:PC.ABOP },
+        { label:'NPS', data:distData.map(d=>d.nps), backgroundColor:PC.NPS },
+        { label:'Overig', data:distData.map(d=>d.overig), backgroundColor:PC.Overig },
+      ]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position:'bottom', labels:{font:{size:11},padding:10} },
+        tooltip: { mode:'index', callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.x.toFixed(1)}%` } }
+      },
+      scales: {
+        x: { stacked: true, max:100, ticks:{ callback:v=>v+'%' } },
+        y: { stacked: true }
+      },
+      onClick: (e, els) => {
+        if (!els.length) return;
+        const i = els[0].index;
+        const dd = distData[i];
+        const det = document.getElementById('district-detail');
+        det.style.display = 'block';
+        det.innerHTML = `<strong>${districts[i]}</strong> — ${dd.total.toLocaleString()} geldige stemmen<br><br>${dd.info}`;
+      }
+    }
+  });
+}
+
+// ── CHART: TOPKANDIDATEN ──────────────────────────────────────
+function renderTopkandidaten() {
+  const namen  = ['Santokhi (VHP)','Simons (NDP)','Adhin (NDP)','Brusswijk (ABOP)','Mathoera (VHP)','Dasai (VHP)','Rusland (NPS)','Waldring (NDP)','Atompai (NPS)'];
+  const parties = ['VHP','NDP','NDP','ABOP','VHP','VHP','NPS','NDP','NPS'];
+  const stemmen = [45894,41729,19228,19178,10535,9217,8533,6915,6481];
+
+  new Chart(document.getElementById('chartTopkandidaten').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: namen,
+      datasets: [{ data: stemmen, backgroundColor: parties.map(p=>PC[p]), borderRadius:4 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()} stemmen (${(ctx.parsed.y/5368).toFixed(1)}× kiesdeler)` } },
+        annotation: {
+          annotations: {
+            kiesdeler: { type:'line', yMin:5368, yMax:5368, borderColor:'#D85A30', borderWidth:2.5, borderDash:[8,4],
+              label:{ content:'Kiesdeler: 5.368 stemmen', display:true, position:'end', font:{size:11,weight:'bold'}, color:'#D85A30', backgroundColor:'rgba(255,255,255,0.85)', padding:{x:8,y:4} } }
+          }
+        }
+      },
+      scales: {
+        y: { ticks: { callback: v => (v/1000)+'k' }, title:{display:true,text:'Stemmen'} }
+      }
+    }
+  });
+}
+
+// ── CHART: DEMOCRATIE ─────────────────────────────────────────
+function renderDemocratie() {
+  const items = [
+    { label:'Vrije en eerlijke verkiezingen', score:88, color:'#27500A', uitleg:'Internationaal erkend als vrij en eerlijk. Meerdere onafhankelijke waarnemers hebben de verkiezingen van 1987 tot 2025 gemonitord en goedgekeurd. Een sterke prestatie voor een land met de turbulente geschiedenis van Suriname.' },
+    { label:'Vreedzame machtsoverdracht', score:92, color:'#27500A', uitleg:'Elke overdracht van macht — van Bouterse naar Venetiaan, van Santokhi naar Simons — verliep vreedzaam. Na de staatsgreep van 1980 en de telefooncoup van 1990 is dit niet vanzelfsprekend. 92/100.' },
+    { label:'Persvrijheid', score:70, color:'#854F0B', uitleg:'Er is een vrije pers in Suriname, met meerdere kranten, radio- en tv-stations. Maar de pers staat onder druk: eigendomsconcentratie, economische afhankelijkheid en soms politieke intimidatie.' },
+    { label:'Onafh. rechtspraak', score:65, color:'#854F0B', uitleg:'De veroordeling van Bouterse voor de december-moorden was een historisch moment. Maar politieke bemoeienis met benoemingen blijft een zorg. De rechtsstaat werkt, maar niet altijd zonder wrijving.' },
+    { label:'Transparantie / anticorruptie', score:48, color:'#D85A30', uitleg:'Corruptie is in Suriname geen uitzondering maar een structureel probleem — in meerdere kabinetten, over meerdere partijen heen. De score van 48/100 is onder de grens van voldoende. Dit is de grootste zwakte van de Surinaamse democratie.' },
+    { label:'Vertegenwoordiging binnenland', score:55, color:'#854F0B', uitleg:'Verbeterd door het nieuwe evenredige kiesstelsel van 2025: meer binnenlandse stemmen tellen nu mee. Maar de laagste opkomst in Sipaliwini (44,4%) laat zien dat de democratie voor de meest afgelegen gemeenschappen letterlijk verder weg is.' },
+  ];
+
+  const ctx = document.getElementById('chartDemocratie').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: items.map(i => i.label.length > 25 ? i.label.slice(0,25)+'...' : i.label),
+      datasets: [
+        { label:'Score', data:items.map(i=>i.score), backgroundColor:items.map(i=>i.color), borderRadius:4 },
+        { label:'Max', data:items.map(()=>100), backgroundColor:'#EEEEEE', borderRadius:4 },
+      ]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.datasetIndex===0 ? ` Score: ${ctx.parsed.x}/100` : '' } }
+      },
+      scales: {
+        x: { stacked: false, max: 105, ticks: { callback: v => v+'/100' } },
+        y: { ticks: { font: { size: 11 } } }
+      },
+      onClick: (e, els) => {
+        if (!els.length) return;
+        const i = els[0].index;
+        const it = items[i];
+        document.getElementById('democratie-detail').innerHTML = `
+          <div style="font-weight:700;font-size:14px;margin-bottom:6px;">${it.label}</div>
+          <div style="font-size:28px;font-weight:700;color:${it.color};margin-bottom:8px;">${it.score}<span style="font-size:14px;color:#aaa;">/100</span></div>
+          <div style="font-size:12px;color:#555;line-height:1.7;">${it.uitleg}</div>`;
+      }
+    }
+  });
+}
+
+// ── CHART: RR/DR ──────────────────────────────────────────────
+function renderRR() {
+  const districts = ['Paramaribo','Wanica','Nickerie','Coronie','Saramacca','Commewijne','Marowijne','Para','Brokopondo','Sipaliwini'];
+  const data = {
+    NDP:  [82,30,22,12,29,20,14,37,32,36],
+    VHP:  [60,62,35,2,30,28,0,3,0,1],
+    ABOP: [15,6,1,1,2,7,44,9,13,23],
+    NPS:  [36,9,3,8,1,6,1,7,5,4],
+    Overig:[7,6,4,0,2,9,1,1,12,8],
+  };
+  new Chart(document.getElementById('chartRR').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: districts,
+      datasets: Object.entries(data).map(([p,d]) => ({ label:p, data:d, backgroundColor:PC[p]||PC.Overig }))
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position:'bottom', labels:{font:{size:11},padding:10} },
+        tooltip: { mode:'index', callbacks: { footer: items => 'Totaal: '+items.reduce((s,i)=>s+i.parsed.x,0)+' RR-zetels' } }
+      },
+      scales: { x: { stacked:true }, y: { stacked:true } }
+    }
+  });
+}
+
+// ── DNA-TABEL ─────────────────────────────────────────────────
+function renderDNA() {
+  const filters = document.getElementById('dna-filters');
+  ['Alle','VHP','NDP','ABOP','NPS','PL','A-20','BEP'].forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'ctrl-btn' + (p==='Alle'?' active':'');
+    btn.textContent = p;
+    if (p !== 'Alle') btn.style.borderColor = PC[p];
+    btn.onclick = () => {
+      document.querySelectorAll('#dna-filters .ctrl-btn').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.color=''; });
+      btn.classList.add('active');
+      if (p !== 'Alle') { btn.style.background = PC[p]; btn.style.color = 'white'; }
+      filterDNA();
+    };
+    filters.appendChild(btn);
+  });
+
+  document.getElementById('dna-search').addEventListener('input', filterDNA);
+  filterDNA();
+}
+
+function filterDNA() {
+  const search = document.getElementById('dna-search').value.toLowerCase();
+  const activeBtn = document.querySelector('#dna-filters .ctrl-btn.active');
+  const party = activeBtn ? activeBtn.textContent : 'Alle';
+  const tbody = document.getElementById('dna-tbody');
+  tbody.innerHTML = dnaLeden.filter(([nr,naam,p,s,g]) => {
+    if (party !== 'Alle' && p !== party) return false;
+    if (search && !naam.toLowerCase().includes(search)) return false;
+    return true;
+  }).map(([nr,naam,p,s,g]) =>
+    `<tr><td>${nr}</td><td><strong>${naam}</strong></td><td><span class="badge badge-${p.toLowerCase().replace('-','')}">${p}</span></td><td>${s.toLocaleString()}</td><td>${g}</td></tr>`
+  ).join('');
+}
+
+// ── KABINETTEN ────────────────────────────────────────────────
+function renderKabinetten() {
+  const ctrl = document.getElementById('kab-ctrl');
+  [['simons','2025–2030'],['santokhi','2020–2025'],['bouterse','2015–2020']].forEach(([k,label],i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ctrl-btn' + (i===0?' active':'');
+    btn.textContent = label;
+    btn.onclick = () => {
+      document.querySelectorAll('#kab-ctrl .ctrl-btn').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.color=''; });
+      btn.classList.add('active'); btn.style.background='var(--cyan)'; btn.style.color='white';
+      showKabinet(k);
+    };
+    ctrl.appendChild(btn);
+  });
+  showKabinet('simons');
+}
+
+function showKabinet(k) {
+  const data = kabinetten[k];
+  const rows = data.ministers.map(([naam,port,partij]) => {
+    const c = PC[partij] || '#888';
+    return `<tr><td><strong>${naam}</strong></td><td>${port}</td><td><span style="color:${c};font-weight:700;">${partij}</span></td></tr>`;
+  }).join('');
+  document.getElementById('kab-content').innerHTML = `
+    <div style="margin-bottom:1rem;padding:1rem;background:#f8f9fb;border-radius:8px;font-family:sans-serif;">
+      <div style="font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px;">${data.titel}</div>
+      <div style="font-size:12px;color:#777;">President: ${data.president} &nbsp;·&nbsp; Vicepresident: ${data.vp}</div>
+    </div>
+    <div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Minister</th><th>Portefeuille</th><th>Partij</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// ── SIDEBAR ACTIVE ────────────────────────────────────────────
+function updateSidebar() {
+  const sections = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('.sb-nav a');
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#'+current));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  renderTijdlijn();
+  renderOpkomst();
+  renderZetelverloop();
+  renderVerkiezingen();
+  renderVkGeschiedenis();
+  renderEtniciteit();
+  renderPicoletCtrl();
+  renderStemgedragCtrl();
+  renderUitslag();
+  renderDistrict();
+  renderTopkandidaten();
+  renderDemocratie();
+  renderRR();
+  renderDNA();
+  renderKabinetten();
+  window.addEventListener('scroll', updateSidebar);
+  showVk(8); // Show 2025 by default
+});
+</script>
+
+
+</body></html>
