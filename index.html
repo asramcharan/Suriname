@@ -81,6 +81,17 @@
     white-space:nowrap;
     padding-right:56px;
   }
+  .news-link{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    max-width:920px; margin:-12px auto 28px; padding:14px 18px;
+    background:#1a2e1c; border:1px solid var(--green); border-left:4px solid var(--gold-bright);
+    border-radius:10px; text-decoration:none; color:inherit;
+    transition:transform .15s, border-color .15s;
+  }
+  .news-link:hover,.news-link:focus-visible{transform:translateY(-1px); border-color:var(--gold-bright);}
+  .news-link small{display:block; font-family:var(--sans); font-size:.85rem; color:#b9c9bb; margin-bottom:2px;}
+  .news-link strong{font-family:var(--sans); font-size:clamp(1.05rem,3.2vw,1.3rem); color:var(--gold-bright);}
+  .news-link .arr{font-size:1.6rem; color:var(--gold-bright); flex-shrink:0;}
   @keyframes tickerScroll{
     0%{ transform:translateX(0); }
     100%{ transform:translateX(-50%); }
@@ -506,6 +517,10 @@
       <span class="ticker-item"><span class="dot"></span>LIVE SURINAAMSE NATIONALE SCHULD VANAF 1 JUNI 2026</span>
     </div>
   </div>
+  <a class="news-link" href="https://surinamenu.com/" target="_blank" rel="noopener">
+    <span><small>Voor de analyses achter het Surinaams nieuws</small><strong>Lees SurinameNU.com</strong></span>
+    <span class="arr" aria-hidden="true">→</span>
+  </a>
   <div class="hero-inner">
 
     <div class="debt-hero">
