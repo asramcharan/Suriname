@@ -90,18 +90,6 @@
   .nc-read strong{font-family:var(--sans); font-size:clamp(1.1rem,3.4vw,1.35rem); color:var(--gold-bright);}
   .nc-read .arr{font-size:1.6rem; color:var(--gold-bright); flex-shrink:0; transition:transform .15s;}
   .nc-read:hover .arr,.nc-read:focus-visible .arr{transform:translateX(4px);}
-  .nc-form{margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.12);}
-  .nc-form label{display:block; font-family:var(--sans); font-size:.95rem; color:#e6efe7; margin-bottom:8px;}
-  .nc-row{display:flex; gap:8px;}
-  .nc-row input{flex:1; min-width:0; font-family:var(--sans); font-size:16px; padding:12px 14px; border-radius:8px; border:1px solid #3d5a40; background:#0f1d11; color:#fff;}
-  .nc-row input::placeholder{color:#8aa08d;}
-  .nc-row input:focus{outline:2px solid var(--gold-bright); outline-offset:1px;}
-  .nc-row button{font-family:var(--sans); font-weight:700; font-size:1rem; padding:12px 18px; border:0; border-radius:8px; background:var(--gold-bright); color:#1a2e1c; cursor:pointer; white-space:nowrap;}
-  .nc-row button:hover{filter:brightness(1.08);} .nc-row button:disabled{opacity:.6; cursor:wait;}
-  .nc-note{font-family:var(--sans); font-size:.8rem; color:#9db3a0; margin-top:8px;}
-  .nc-msg{font-family:var(--sans); font-size:.95rem; margin-top:8px; min-height:1.2em;}
-  .nc-msg.ok{color:var(--green);} .nc-msg.err{color:#ff8a80;}
-  @media(max-width:480px){ .nc-row{flex-direction:column;} .nc-row button{width:100%;} }
   @keyframes tickerScroll{
     0%{ transform:translateX(0); }
     100%{ transform:translateX(-50%); }
@@ -534,15 +522,6 @@
         <span><small>Voor de analyses achter het Surinaams nieuws</small><strong>Lees SurinameNU.com</strong></span>
         <span class="arr" aria-hidden="true">→</span>
       </a>
-      <form class="nc-form" id="nc-form" novalidate>
-        <label for="nc-email">Ontvang nieuwe berichten van SurinameNU.com direct in uw inbox</label>
-        <div class="nc-row">
-          <input id="nc-email" type="email" inputmode="email" autocomplete="email" placeholder="Typ uw e-mailadres" required>
-          <button type="submit">Abonneren</button>
-        </div>
-        <div class="nc-msg" id="nc-msg" role="status" aria-live="polite"></div>
-        <div class="nc-note">Geen spam, geen vulling. Afmelden kan altijd.</div>
-      </form>
     </div>
   </aside>
   <div class="hero-inner">
@@ -1558,29 +1537,6 @@ setInterval(updateLiveTicker, 1000);
   setActive(sectionIds[0]);
 })();
 
-</script>
-<script>
-/* Abonneren op SurinameNU.com. Zet hier het adres van de aanmeld-API van surinamenu.com (POST, JSON {email, bron}). */
-var SUBSCRIBE_ENDPOINT = '';
-(function(){
-  var f=document.getElementById('nc-form'); if(!f) return;
-  var inp=document.getElementById('nc-email'), msg=document.getElementById('nc-msg'), btn=f.querySelector('button');
-  function say(t,c){msg.textContent=t; msg.className='nc-msg '+(c||'');}
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var email=(inp.value||'').trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ say('Controleer uw e-mailadres.','err'); inp.focus(); return; }
-    if(!SUBSCRIBE_ENDPOINT){
-      window.open('https://surinamenu.com/?abonneer=1&bron=schuldcalculator&email='+encodeURIComponent(email),'_blank','noopener');
-      say('U gaat verder op SurinameNU.com om uw abonnement te bevestigen.','ok'); return;
-    }
-    btn.disabled=true; say('Bezig…');
-    fetch(SUBSCRIBE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,bron:'schuldcalculator'})})
-      .then(function(r){ if(!r.ok) throw new Error(r.status); say('Bedankt! U bent aangemeld.','ok'); inp.value=''; })
-      .catch(function(){ say('Aanmelden lukte niet. Probeer het later opnieuw.','err'); })
-      .then(function(){ btn.disabled=false; });
-  });
-})();
 </script>
 </body>
 </html>
